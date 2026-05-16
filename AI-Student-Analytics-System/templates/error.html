@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}{{ code }} — AI Student Analytics{% endblock %}
+
+{% block content %}
+{% include "_layout.html" %}
+<div class="page-container d-flex flex-column align-items-center justify-content-center" style="min-height:70vh;text-align:center">
+  <div class="error-code">{{ code }}</div>
+  <div class="error-title">{{ title }}</div>
+  <p class="text-muted mb-4" style="max-width:420px">{{ message }}</p>
+  <div class="d-flex gap-3 flex-wrap justify-content-center">
+    <a href="{{ url_for('dashboard') }}" class="btn-action-pill">
+      <i class="bi bi-speedometer2 me-2"></i>Go to Dashboard
+    </a>
+    <button onclick="history.back()" class="btn-action-pill btn-action-secondary">
+      <i class="bi bi-arrow-left me-2"></i>Go Back
+    </button>
+  </div>
+</div>
+  </main>
+</div>
+{% endblock %}

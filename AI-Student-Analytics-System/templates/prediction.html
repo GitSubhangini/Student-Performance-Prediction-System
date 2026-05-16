@@ -1,0 +1,343 @@
+{% extends "base.html" %}
+{% block title %}Prediction — AI Student Analytics{% endblock %}
+
+{% block content %}
+{% set page_title = "Student Performance Prediction" %}
+{% include "_layout.html" %}
+<div class="page-container">
+  <div class="row g-4">
+
+    <!-- FORM COLUMN -->
+    <div class="col-lg-6">
+      <div class="glass-card">
+        <div class="chart-header"><i class="bi bi-cpu-fill me-2"></i>Enter Student Details</div>
+        <form method="POST" action="{{ url_for('predict_view') }}" id="predictForm">
+
+          <!-- Student Name -->
+          <div class="mb-3">
+            <label class="form-label-custom">Student Name (optional)</label>
+            <input type="text" name="student_name" class="form-control dash-input" placeholder="e.g. John Doe"/>
+          </div>
+
+          <div class="row g-3">
+            <!-- Gender -->
+            <div class="col-6">
+              <label class="form-label-custom">Gender</label>
+              <select name="gender" class="form-select dash-input" required>
+                <option value="" disabled selected>Select…</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+              </select>
+            </div>
+            <!-- Race -->
+            <div class="col-6">
+              <label class="form-label-custom">Race / Ethnicity</label>
+              <select name="race_ethnicity" class="form-select dash-input" required>
+                <option value="" disabled selected>Select…</option>
+                {% for g in ['Group A','Group B','Group C','Group D','Group E'] %}
+                <option value="{{ g }}">{{ g }}</option>
+                {% endfor %}
+              </select>
+            </div>
+            <!-- Education -->
+            <div class="col-12">
+              <label class="form-label-custom">Parental Education</label>
+              <select name="parental_education" class="form-select dash-input" required>
+                <option value="" disabled selected>Select…</option>
+                {% for e in ["some high school","high school","some college","associate's degree","bachelor's degree","master's degree"] %}
+                <option value="{{ e }}">{{ e.title() }}</option>
+                {% endfor %}
+              </select>
+            </div>
+            <!-- Lunch -->
+            <div class="col-6">
+              <label class="form-label-custom">Lunch Type</label>
+              <select name="lunch" class="form-select dash-input" required>
+                <option value="standard">Standard</option>
+                <option value="free/reduced">Free / Reduced</option>
+              </select>
+            </div>
+            <!-- Test Prep -->
+            <div class="col-6">
+              <label class="form-label-custom">Test Prep Course</label>
+              <select name="test_prep_course" class="form-select dash-input" required>
+                <option value="completed">Completed</option>
+                <option value="none">None</option>
+              </select>
+            </div>
+            <!-- Extracurricular -->
+            <div class="col-6">
+              <label class="form-label-custom">Extracurricular</label>
+              <select name="extracurricular" class="form-select dash-input" required>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+              </select>
+            </div>
+            <!-- Internet -->
+            <div class="col-6">
+              <label class="form-label-custom">Internet Access</label>
+              <select name="internet_access" class="form-select dash-input" required>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+              </select>
+            </div>
+            <!-- Study Hours -->
+            <div class="col-6">
+              <label class="form-label-custom">Study Hours / Week</label>
+              <input type="number" name="study_hours" class="form-control dash-input"
+                     min="0" max="40" step="0.5" value="4" required/>
+            </div>
+            <!-- Attendance -->
+            <div class="col-6">
+              <label class="form-label-custom">Attendance Rate (%)</label>
+              <input type="number" name="attendance" class="form-control dash-input"
+                     min="0" max="100" step="0.1" value="85" required/>
+            </div>
+            <!-- Scores -->
+            <div class="col-6">
+              <label class="form-label-custom">Current Math Score</label>
+              <input type="number" name="math_score" class="form-control dash-input"
+                     min="0" max="100" value="70" required/>
+            </div>
+            <div class="col-6">
+              <label class="form-label-custom">Current Reading Score</label>
+              <input type="number" name="reading_score" class="form-control dash-input"
+                     min="0" max="100" value="72" required/>
+            </div>
+            <div class="col-6">
+              <label class="form-label-custom">Current Writing Score</label>
+              <input type="number" name="writing_score" class="form-control dash-input"
+                     min="0" max="100" value="68" required/>
+            </div>
+            <div class="col-6">
+              <label class="form-label-custom">Current Science Score</label>
+              <input type="number" name="science_score" class="form-control dash-input"
+                     min="0" max="100" value="71" required/>
+            </div>
+          </div>
+
+          <button type="submit" class="btn-predict-main w-100 mt-4" id="submitBtn">
+            <i class="bi bi-lightning-charge-fill me-2"></i>Predict Performance
+            <div class="btn-shine"></div>
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- RESULT COLUMN -->
+    <div class="col-lg-6">
+      {% if result %}
+      <div class="result-card animate-in">
+        <div class="result-header-text">Prediction Result</div>
+
+        <!-- Score Ring -->
+        <div class="score-ring-wrap">
+          <svg viewBox="0 0 120 120" class="score-ring">
+            <circle cx="60" cy="60" r="50" fill="none" stroke="rgba(255,255,255,0.07)" stroke-width="10"/>
+            <circle cx="60" cy="60" r="50" fill="none"
+                    stroke="{% if result.grade_color=='success' %}#22c55e{% elif result.grade_color=='info' %}#38bdf8{% elif result.grade_color=='warning' %}#f59e0b{% else %}#ef4444{% endif %}"
+                    stroke-width="10" stroke-linecap="round"
+                    stroke-dasharray="{{ result.predicted_score * 3.14 }}, 314"
+                    transform="rotate(-90 60 60)" class="ring-fill"/>
+          </svg>
+          <div class="score-center">
+            <div class="score-num" id="scoreNum" data-target="{{ result.predicted_score }}">0</div>
+            <div class="score-sub">/ 100</div>
+          </div>
+        </div>
+
+        <div class="grade-display grade-{{ result.grade_color }}">
+          {{ result.grade }} — {{ result.grade_desc }}
+        </div>
+
+        <!-- Metrics Grid -->
+        <div class="result-metrics">
+          <div class="rm-item">
+            <div class="rm-icon risk-{{ result.risk_level.lower() }}"><i class="bi bi-exclamation-diamond-fill"></i></div>
+            <div><div class="rm-label">Risk Level</div><div class="rm-val">{{ result.risk_level }}</div></div>
+          </div>
+          <div class="rm-item">
+            <div class="rm-icon text-info"><i class="bi bi-shield-check-fill"></i></div>
+            <div><div class="rm-label">Confidence</div><div class="rm-val">{{ result.confidence }}%</div></div>
+          </div>
+          <div class="rm-item">
+            <div class="rm-icon text-accent"><i class="bi bi-award-fill"></i></div>
+            <div><div class="rm-label">Grade</div><div class="rm-val">{{ result.grade }}</div></div>
+          </div>
+          <div class="rm-item">
+            <div class="rm-icon text-success"><i class="bi bi-graph-up"></i></div>
+            <div><div class="rm-label">Score</div><div class="rm-val">{{ result.predicted_score }}</div></div>
+          </div>
+          <div class="rm-item">
+            <div class="rm-icon text-warning"><i class="bi bi-arrows-expand"></i></div>
+            <div><div class="rm-label">Interval</div><div class="rm-val">{{ result.interval.low }} - {{ result.interval.high }}</div></div>
+          </div>
+          <div class="rm-item">
+            <div class="rm-icon text-info"><i class="bi bi-cpu"></i></div>
+            <div><div class="rm-label">Model</div><div class="rm-val">{{ result.model.name }}</div></div>
+          </div>
+        </div>
+
+        <!-- Confidence Bar -->
+        <div class="mt-3">
+          <div class="d-flex justify-content-between mb-1">
+            <small class="text-muted">Prediction Confidence</small>
+            <small class="text-info">{{ result.confidence }}%</small>
+          </div>
+          <div class="conf-bar-track">
+            <div class="conf-bar-fill" data-width="{{ result.confidence }}%"></div>
+          </div>
+        </div>
+
+        <a href="{{ url_for('report') }}" class="btn-outline-accent w-100 mt-3 d-block text-center py-2">
+          <i class="bi bi-file-pdf me-2"></i>View Full Report
+        </a>
+      </div>
+
+      {% if result.drivers %}
+      <div class="glass-card mt-4">
+        <div class="chart-header"><i class="bi bi-sliders me-2"></i>Top Drivers</div>
+        <div class="insight-list">
+          {% for driver in result.drivers %}
+          <div class="insight-item insight-{{ driver.impact }}">
+            <div>
+              <strong>{{ driver.feature }}</strong>
+              <span>{{ driver.message }}</span>
+            </div>
+            <small>{{ driver.value }}</small>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      {% endif %}
+
+      {% if result.recommendations %}
+      <div class="glass-card mt-4">
+        <div class="chart-header"><i class="bi bi-lightbulb-fill me-2 text-warning"></i>Recommended Actions</div>
+        <ul class="recommendation-list">
+          {% for rec in result.recommendations %}
+          <li>{{ rec }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% endif %}
+
+      {% else %}
+      <!-- Placeholder -->
+      <div class="glass-card h-100 d-flex flex-column align-items-center justify-content-center text-center py-5">
+        <div class="placeholder-icon"><i class="bi bi-cpu-fill"></i></div>
+        <h5 class="mt-3 text-primary">AI Prediction Engine</h5>
+        <p class="text-muted">Fill in the student details on the left<br>and click <strong>Predict Performance</strong>.</p>
+        <div class="feature-pills mt-3">
+          <span class="pill"><i class="bi bi-check2 me-1"></i>Grade Prediction</span>
+          <span class="pill"><i class="bi bi-check2 me-1"></i>Risk Detection</span>
+          <span class="pill"><i class="bi bi-check2 me-1"></i>Confidence Score</span>
+          <span class="pill"><i class="bi bi-check2 me-1"></i>Saved to History</span>
+        </div>
+      </div>
+      {% endif %}
+
+      <!-- Leaderboard -->
+      {% if leaderboard %}
+      <div class="glass-card mt-4">
+        <div class="chart-header"><i class="bi bi-trophy-fill me-2 text-warning"></i>Top Students Leaderboard</div>
+        <ol class="leaderboard-list">
+          {% for p in leaderboard %}
+          <li class="lb-item {% if loop.index <= 3 %}lb-top{% endif %}">
+            <span class="lb-rank">{{ loop.index }}</span>
+            <span class="lb-name">{{ p.student_name or 'Anonymous' }}</span>
+            <span class="lb-score">{{ p.predicted_score }}</span>
+            <span class="badge bg-{% if p.grade in ['A+','A'] %}success{% elif p.grade=='B' %}info{% else %}warning{% endif %} ms-2">{{ p.grade }}</span>
+          </li>
+          {% endfor %}
+        </ol>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+
+  <!-- CSV Upload Section -->
+  <div class="glass-card mt-4">
+    <div class="chart-header"><i class="bi bi-cloud-upload-fill me-2"></i>Batch CSV Upload</div>
+    <form method="POST" action="{{ url_for('upload_csv') }}" enctype="multipart/form-data" class="row align-items-center g-3">
+      <div class="col-md-8">
+        <input type="file" name="file" accept=".csv" class="form-control dash-input" required/>
+        <small class="text-muted">Required columns: gender, race_ethnicity, parental_education, lunch, test_prep_course, extracurricular, internet_access, study_hours_per_week, attendance_rate, math_score, reading_score, writing_score, science_score.</small>
+      </div>
+      <div class="col-md-4 text-end">
+        <button type="submit" class="btn btn-outline-accent">
+          <i class="bi bi-cloud-upload me-2"></i>Upload and Predict
+        </button>
+      </div>
+    </form>
+
+    {% if batch_results %}
+    <div class="table-responsive mt-4">
+      <table class="table table-dark-custom">
+        <thead><tr><th>Row</th><th>Student</th><th>Score</th><th>Interval</th><th>Grade</th><th>Risk</th><th>Confidence</th></tr></thead>
+        <tbody>
+        {% for row in batch_results %}
+        <tr>
+          <td>{{ row.row }}</td>
+          <td>{{ row.student }}</td>
+          <td><strong>{{ row.predicted_score }}</strong></td>
+          <td>{{ row.interval.low }} - {{ row.interval.high }}</td>
+          <td><span class="badge bg-{% if row.grade in ['A+','A'] %}success{% elif row.grade=='B' %}info{% elif row.grade in ['C','D'] %}warning{% else %}danger{% endif %}">{{ row.grade }}</span></td>
+          <td><span class="risk-badge risk-{{ row.risk_level.lower() }}">{{ row.risk_level }}</span></td>
+          <td>{{ row.confidence }}%</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% endif %}
+
+    {% if batch_errors %}
+    <div class="table-responsive mt-4">
+      <table class="table table-dark-custom">
+        <thead><tr><th>Row</th><th>Student</th><th>Issue</th></tr></thead>
+        <tbody>
+        {% for err in batch_errors %}
+        <tr>
+          <td>{{ err.row }}</td>
+          <td>{{ err.student }}</td>
+          <td class="text-warning">{{ err.error }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% endif %}
+  </div>
+</div>{# end page-container #}
+  </main>
+</div>{# end main-wrapper #}
+{% endblock %}
+
+{% block scripts %}
+<script>
+// Animate score counter
+const scoreEl = document.getElementById("scoreNum");
+if(scoreEl){
+  const target = parseFloat(scoreEl.dataset.target);
+  const dur = 1500, start = performance.now();
+  function tick(now){
+    const p = Math.min((now-start)/dur,1);
+    const ease = 1-Math.pow(1-p,3);
+    scoreEl.textContent = (target*ease).toFixed(p===1?2:0);
+    if(p<1) requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+}
+// Animate confidence bar
+document.querySelectorAll(".conf-bar-fill").forEach(el=>{
+  setTimeout(()=>{ el.style.width = el.dataset.width; }, 400);
+});
+// Loading state on submit
+document.getElementById("predictForm")?.addEventListener("submit",()=>{
+  const btn = document.getElementById("submitBtn");
+  btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Analysing…';
+  btn.disabled = true;
+});
+</script>
+{% endblock %}

@@ -1,0 +1,201 @@
+student_id,gender,race_ethnicity,parental_education,lunch,test_prep_course,study_hours_per_week,attendance_rate,extracurricular,internet_access,math_score,reading_score,writing_score,science_score,average_score,current_average_score,final_score,risk_level
+STU0522,male,Group E,master's degree,standard,none,5.2,89.5,yes,yes,95,94,88,84,90.25,90.25,70.31,Low
+STU0738,female,Group D,master's degree,free/reduced,completed,7.1,100.0,yes,yes,89,89,85,85,87.0,87.0,78.72,Low
+STU0741,male,Group D,associate's degree,free/reduced,completed,4.8,100.0,yes,yes,86,90,91,95,90.5,90.5,80.57,Low
+STU0661,male,Group C,bachelor's degree,standard,completed,1.2,88.2,no,no,70,69,68,58,66.25,66.25,44.64,High
+STU0412,male,Group B,master's degree,standard,completed,4.4,72.7,no,no,73,72,77,68,72.5,72.5,57.75,Medium
+STU0679,female,Group D,high school,standard,completed,7.5,77.1,no,yes,73,81,88,62,76.0,76.0,66.44,Low
+STU0627,male,Group A,high school,standard,none,3.2,87.3,no,no,59,62,80,71,68.0,68.0,42.38,High
+STU0514,female,Group C,high school,standard,none,4.5,92.5,no,yes,63,66,56,59,61.0,61.0,51.82,Medium
+STU0860,male,Group C,bachelor's degree,free/reduced,none,4.9,82.5,yes,yes,67,59,60,62,62.0,62.0,49.62,High
+STU0137,male,Group D,master's degree,free/reduced,none,7.3,81.0,no,yes,68,76,71,64,69.75,69.75,60.61,Medium
+STU0812,female,Group E,bachelor's degree,free/reduced,completed,3.3,75.5,yes,no,71,71,76,76,73.5,73.5,42.04,High
+STU0077,male,Group D,high school,standard,none,0.8,89.9,yes,yes,65,58,68,59,62.5,62.5,40.55,High
+STU0637,female,Group B,master's degree,standard,none,1.5,100.0,yes,yes,84,76,83,85,82.0,82.0,63.92,Medium
+STU0974,male,Group B,some high school,standard,none,2.4,100.0,no,no,65,62,61,59,61.75,61.75,33.3,High
+STU0939,female,Group C,master's degree,free/reduced,completed,6.1,76.0,yes,no,53,57,55,66,57.75,57.75,41.04,High
+STU0900,female,Group C,some college,standard,completed,8.3,73.3,yes,no,80,71,72,65,72.0,72.0,65.75,Low
+STU0281,male,Group D,master's degree,free/reduced,none,8.9,75.1,yes,no,68,67,59,51,61.25,61.25,43.37,High
+STU0884,female,Group E,bachelor's degree,standard,completed,9.9,88.8,no,yes,78,96,98,96,92.0,92.0,87.48,Low
+STU0762,female,Group C,associate's degree,standard,none,10.6,76.5,yes,no,69,79,76,82,76.5,76.5,67.71,Low
+STU0320,male,Group B,some high school,free/reduced,none,4.3,61.1,no,yes,55,48,65,69,59.25,59.25,43.98,High
+STU0550,male,Group B,some high school,free/reduced,none,2.5,73.8,no,no,44,45,41,36,41.5,41.5,12.67,High
+STU0175,female,Group C,some college,free/reduced,completed,4.0,89.1,yes,yes,71,65,59,63,64.5,64.5,47.94,High
+STU0372,female,Group E,high school,free/reduced,none,11.2,83.6,yes,no,75,78,74,77,76.0,76.0,60.88,Medium
+STU0528,male,Group C,some college,free/reduced,none,8.9,89.3,yes,yes,82,97,90,100,92.25,92.25,67.0,Low
+STU0211,female,Group E,some high school,standard,none,1.3,72.7,yes,yes,71,62,69,60,65.5,65.5,47.02,High
+STU0236,female,Group C,associate's degree,standard,completed,7.5,99.6,no,no,75,66,78,68,71.75,71.75,63.67,Medium
+STU0102,male,Group A,some college,free/reduced,completed,4.6,86.4,yes,no,59,68,62,60,62.25,62.25,50.73,Medium
+STU0987,female,Group A,some college,standard,none,1.6,90.8,no,no,60,64,62,76,65.5,65.5,38.4,High
+STU0903,male,Group E,bachelor's degree,free/reduced,none,1.1,79.9,no,no,52,65,60,63,60.0,60.0,32.01,High
+STU0948,male,Group C,associate's degree,free/reduced,completed,5.2,83.8,yes,yes,82,91,89,87,87.25,87.25,60.77,Medium
+STU0347,female,Group A,some college,free/reduced,completed,7.8,92.5,no,yes,82,80,79,76,79.25,79.25,81.71,Low
+STU0140,female,Group D,some high school,standard,none,2.3,81.4,no,no,62,71,61,65,64.75,64.75,34.02,High
+STU0622,female,Group E,bachelor's degree,standard,completed,4.6,87.7,no,yes,70,89,65,78,75.5,75.5,61.15,Medium
+STU0500,male,Group A,bachelor's degree,free/reduced,none,4.6,76.4,yes,yes,66,80,72,68,71.5,71.5,46.2,High
+STU0371,male,Group C,some high school,standard,none,1.9,83.7,yes,no,60,68,57,76,65.25,65.25,39.49,High
+STU0199,female,Group D,some college,standard,none,5.2,66.2,yes,no,58,49,51,43,50.25,50.25,28.18,High
+STU0688,male,Group C,some high school,free/reduced,none,3.8,90.5,no,no,55,60,49,53,54.25,54.25,28.89,High
+STU0585,male,Group C,associate's degree,free/reduced,none,7.1,85.7,no,yes,79,75,77,64,73.75,73.75,49.69,High
+STU0902,male,Group D,associate's degree,standard,none,3.6,84.4,no,yes,63,75,70,65,68.25,68.25,43.16,High
+STU0060,female,Group D,master's degree,free/reduced,completed,4.7,86.0,yes,no,74,86,72,78,77.5,77.5,74.55,Low
+STU0329,male,Group C,associate's degree,free/reduced,completed,4.0,82.3,yes,no,86,73,77,77,78.25,78.25,52.15,Medium
+STU0097,female,Group A,master's degree,standard,completed,1.9,100.0,yes,no,99,94,99,90,95.5,95.5,75.84,Low
+STU0313,female,Group B,some college,standard,none,5.2,59.9,yes,no,70,68,65,70,68.25,68.25,48.38,High
+STU0975,female,Group D,master's degree,standard,completed,5.1,79.5,yes,no,79,87,84,99,87.25,87.25,64.64,Medium
+STU0300,male,Group C,associate's degree,standard,completed,0.9,87.4,no,no,54,62,63,59,59.5,59.5,46.62,High
+STU0278,female,Group E,master's degree,free/reduced,completed,5.5,82.9,yes,yes,63,77,71,75,71.5,71.5,58.08,Medium
+STU0925,female,Group B,some high school,standard,completed,3.4,88.2,yes,yes,64,71,72,60,66.75,66.75,58.78,Medium
+STU0602,male,Group C,bachelor's degree,standard,completed,3.9,83.3,no,no,71,76,75,76,74.5,74.5,43.56,High
+STU0440,female,Group D,some high school,free/reduced,none,3.7,95.8,yes,no,60,68,64,63,63.75,63.75,47.01,High
+STU0838,male,Group E,associate's degree,standard,completed,4.7,78.9,no,no,77,68,83,62,72.5,72.5,63.59,Medium
+STU0571,male,Group E,bachelor's degree,standard,completed,7.3,75.9,yes,yes,85,93,90,67,83.75,83.75,75.21,Low
+STU0880,female,Group B,high school,free/reduced,none,5.7,79.5,yes,yes,53,68,59,70,62.5,62.5,40.82,High
+STU0262,male,Group D,bachelor's degree,free/reduced,none,3.7,89.1,yes,yes,76,76,79,74,76.25,76.25,61.94,Medium
+STU0579,female,Group B,some college,free/reduced,completed,10.7,88.3,yes,yes,79,73,70,63,71.25,71.25,60.14,Medium
+STU0024,female,Group C,associate's degree,free/reduced,completed,6.7,100.0,yes,yes,70,73,90,91,81.0,81.0,71.33,Low
+STU0031,female,Group B,some college,free/reduced,completed,3.0,83.0,yes,no,41,67,45,44,49.25,49.25,48.15,High
+STU0618,female,Group E,associate's degree,free/reduced,none,6.2,65.6,no,yes,63,75,68,69,68.75,68.75,42.81,High
+STU0011,female,Group D,some college,standard,none,6.8,76.7,yes,yes,72,70,79,72,73.25,73.25,60.24,Medium
+STU0222,male,Group D,some college,free/reduced,completed,2.9,100.0,no,yes,67,62,79,75,70.75,70.75,58.61,Medium
+STU0821,female,Group C,high school,free/reduced,completed,5.5,64.9,no,yes,63,77,72,76,72.0,72.0,47.28,High
+STU0297,male,Group D,high school,free/reduced,none,3.0,92.7,yes,no,51,55,64,51,55.25,55.25,23.78,High
+STU0055,female,Group E,associate's degree,free/reduced,completed,5.1,63.9,yes,no,67,72,67,68,68.5,68.5,51.32,Medium
+STU0543,female,Group C,some college,standard,completed,5.9,78.8,no,no,70,62,80,72,71.0,71.0,52.35,Medium
+STU0210,male,Group B,bachelor's degree,standard,none,5.9,89.0,yes,no,62,82,77,69,72.5,72.5,55.2,Medium
+STU0605,male,Group E,high school,standard,completed,2.5,75.1,no,yes,55,51,56,69,57.75,57.75,48.42,High
+STU0693,male,Group E,some college,free/reduced,none,3.0,59.7,no,yes,55,67,67,68,64.25,64.25,31.6,High
+STU0663,male,Group A,some high school,free/reduced,none,3.4,83.5,no,no,59,55,53,64,57.75,57.75,39.62,High
+STU0867,male,Group B,some high school,free/reduced,completed,3.4,86.3,yes,yes,61,59,59,67,61.5,61.5,48.6,High
+STU0071,female,Group B,some college,free/reduced,none,5.3,87.7,yes,yes,63,76,75,68,70.5,70.5,51.27,Medium
+STU0544,female,Group C,master's degree,free/reduced,completed,3.9,87.9,yes,yes,54,75,75,69,68.25,68.25,53.05,Medium
+STU0108,male,Group B,some college,free/reduced,none,6.4,88.7,yes,yes,60,53,49,56,54.5,54.5,47.11,High
+STU0494,male,Group B,master's degree,standard,none,9.0,83.4,no,yes,76,93,92,86,86.75,86.75,84.34,Low
+STU0591,female,Group E,bachelor's degree,free/reduced,completed,0.0,74.0,no,no,58,65,69,59,62.75,62.75,32.12,High
+STU0742,male,Group A,associate's degree,standard,none,7.2,85.9,no,yes,73,80,80,68,75.25,75.25,54.44,Medium
+STU0293,male,Group D,master's degree,free/reduced,none,13.2,93.2,no,yes,94,100,89,75,89.5,89.5,75.73,Low
+STU0290,female,Group C,some college,standard,none,9.3,84.6,no,yes,83,82,85,97,86.75,86.75,68.66,Low
+STU0653,female,Group A,some college,standard,completed,3.3,97.2,no,no,81,85,67,87,80.0,80.0,63.3,Medium
+STU0040,male,Group C,associate's degree,free/reduced,completed,10.4,88.8,yes,no,78,83,78,88,81.75,81.75,63.33,Medium
+STU0590,male,Group E,master's degree,standard,none,8.6,74.3,yes,yes,91,88,80,83,85.5,85.5,72.27,Low
+STU0308,male,Group E,some college,free/reduced,completed,8.3,77.3,no,yes,46,55,53,59,53.25,53.25,41.89,High
+STU0680,male,Group D,associate's degree,free/reduced,none,2.5,95.2,yes,yes,57,61,63,65,61.5,61.5,50.16,Medium
+STU0067,male,Group D,high school,standard,none,6.2,100.0,yes,yes,69,76,81,66,73.0,73.0,67.14,Low
+STU0276,female,Group D,some college,standard,none,4.0,82.1,yes,no,75,80,71,68,73.5,73.5,54.64,Medium
+STU0068,male,Group D,high school,free/reduced,none,4.0,96.6,no,no,37,36,40,45,39.5,39.5,25.16,High
+STU0319,female,Group C,high school,free/reduced,none,5.4,78.6,no,yes,74,52,65,49,60.0,60.0,41.69,High
+STU0549,female,Group A,bachelor's degree,standard,none,7.5,79.8,no,yes,78,67,85,76,76.5,76.5,68.41,Low
+STU0999,female,Group D,high school,free/reduced,completed,6.5,85.6,yes,no,66,69,66,69,67.5,67.5,50.42,Medium
+STU0715,female,Group B,high school,free/reduced,completed,6.6,100.0,no,yes,58,63,59,68,62.0,62.0,58.45,Medium
+STU0754,male,Group D,some college,free/reduced,none,1.8,89.5,no,yes,59,71,52,67,62.25,62.25,50.82,Medium
+STU0328,male,Group B,high school,free/reduced,none,5.5,94.2,no,no,65,53,52,65,58.75,58.75,40.74,High
+STU0383,female,Group C,bachelor's degree,free/reduced,completed,4.3,78.8,yes,no,61,73,66,81,70.25,70.25,53.88,Medium
+STU0452,female,Group A,some high school,standard,completed,7.7,83.6,yes,no,71,76,75,64,71.5,71.5,65.66,Low
+STU0523,female,Group B,bachelor's degree,standard,none,6.6,87.7,yes,no,55,71,63,52,60.25,60.25,62.77,Medium
+STU0219,male,Group D,bachelor's degree,standard,completed,7.4,75.5,yes,no,77,75,83,71,76.5,76.5,60.88,Medium
+STU0788,female,Group A,some high school,free/reduced,none,2.0,85.2,yes,no,57,73,58,60,62.0,62.0,31.75,High
+STU0437,male,Group B,high school,free/reduced,none,5.8,81.4,yes,no,45,53,55,63,54.0,54.0,37.49,High
+STU0765,female,Group E,some college,free/reduced,none,5.9,76.3,yes,no,77,62,62,64,66.25,66.25,42.62,High
+STU0089,female,Group C,high school,standard,none,8.4,73.3,no,yes,70,67,72,67,69.0,69.0,58.61,Medium
+STU0064,male,Group B,master's degree,free/reduced,completed,0.0,78.0,yes,yes,89,86,91,76,85.5,85.5,60.98,Medium
+STU0827,female,Group C,bachelor's degree,standard,completed,7.2,77.1,no,no,50,61,60,71,60.5,60.5,54.15,Medium
+STU0717,female,Group E,high school,free/reduced,none,8.7,69.3,yes,yes,53,64,55,52,56.0,56.0,35.49,High
+STU0352,female,Group D,some college,standard,completed,6.3,68.9,yes,yes,72,75,73,76,74.0,74.0,61.3,Medium
+STU0937,male,Group B,some college,free/reduced,none,4.9,82.2,yes,yes,56,52,48,50,51.5,51.5,49.63,High
+STU0257,female,Group B,high school,free/reduced,none,5.8,71.6,no,no,52,71,80,64,66.75,66.75,43.17,High
+STU0636,male,Group E,high school,free/reduced,none,2.7,77.0,no,yes,59,68,70,55,63.0,63.0,36.11,High
+STU0645,male,Group E,some college,standard,none,5.6,98.9,no,no,71,76,82,73,75.5,75.5,44.18,High
+STU0555,male,Group E,some high school,standard,none,7.0,88.2,yes,yes,95,89,96,80,90.0,90.0,66.66,Low
+STU0960,male,Group A,some college,standard,none,8.4,77.3,yes,yes,67,78,75,75,73.75,73.75,58.65,Medium
+STU0169,male,Group D,some high school,standard,completed,2.6,100.0,yes,no,69,82,75,73,74.75,74.75,62.75,Medium
+STU0918,female,Group D,some high school,free/reduced,none,10.3,72.7,no,no,49,52,63,56,55.0,55.0,38.59,High
+STU0529,male,Group A,high school,standard,none,3.6,88.6,no,no,79,65,73,75,73.0,73.0,52.49,Medium
+STU0824,male,Group C,some high school,standard,completed,5.1,80.0,no,no,75,72,75,76,74.5,74.5,64.43,Medium
+STU0986,male,Group B,some college,standard,completed,3.9,93.4,no,no,82,68,65,68,70.75,70.75,47.76,High
+STU0817,female,Group B,some high school,free/reduced,none,9.1,58.2,yes,no,53,65,67,46,57.75,57.75,46.46,High
+STU0087,male,Group D,associate's degree,standard,none,4.2,79.3,no,no,68,78,58,65,67.25,67.25,40.56,High
+STU0433,male,Group B,master's degree,free/reduced,completed,6.2,73.6,yes,no,74,72,62,60,67.0,67.0,45.46,High
+STU0185,male,Group C,bachelor's degree,free/reduced,none,5.5,59.1,no,no,56,73,50,55,58.5,58.5,42.83,High
+STU0979,female,Group D,some high school,standard,completed,2.5,83.9,no,no,69,80,70,86,76.25,76.25,65.08,Low
+STU0535,male,Group A,some college,free/reduced,completed,6.6,100.0,yes,no,69,80,73,70,73.0,73.0,56.1,Medium
+STU0295,male,Group E,bachelor's degree,standard,completed,5.4,86.2,yes,no,56,75,75,81,71.75,71.75,69.63,Low
+STU0893,male,Group C,associate's degree,standard,none,3.3,77.9,no,no,91,83,95,83,88.0,88.0,61.2,Medium
+STU0426,male,Group B,master's degree,free/reduced,completed,6.6,93.1,yes,yes,81,68,69,80,74.5,74.5,77.22,Low
+STU0714,male,Group D,associate's degree,standard,completed,2.7,86.5,no,no,81,82,75,85,80.75,80.75,41.56,High
+STU0261,female,Group A,associate's degree,standard,completed,6.6,88.3,no,no,66,74,72,66,69.5,69.5,54.9,Medium
+STU0238,female,Group E,some high school,free/reduced,none,1.2,89.0,no,yes,48,55,64,61,57.0,57.0,35.62,High
+STU0560,male,Group E,associate's degree,standard,none,10.5,93.8,yes,yes,84,85,80,87,84.0,84.0,78.08,Low
+STU0584,female,Group B,master's degree,standard,completed,12.6,93.7,no,yes,100,100,97,83,95.0,95.0,87.02,Low
+STU0446,male,Group D,bachelor's degree,free/reduced,completed,7.5,85.2,yes,yes,68,81,81,75,76.25,76.25,61.35,Medium
+STU0868,female,Group E,bachelor's degree,free/reduced,none,3.5,78.0,yes,no,62,61,53,60,59.0,59.0,40.69,High
+STU0801,male,Group D,bachelor's degree,free/reduced,none,8.5,73.5,no,yes,61,72,77,68,69.5,69.5,51.62,Medium
+STU0600,female,Group E,some high school,standard,none,7.6,82.9,yes,yes,77,88,90,81,84.0,84.0,65.53,Low
+STU0850,male,Group E,associate's degree,standard,completed,6.5,76.0,yes,yes,96,83,87,72,84.5,84.5,81.3,Low
+STU0266,male,Group D,bachelor's degree,free/reduced,none,7.1,84.5,no,no,60,63,63,76,65.5,65.5,42.65,High
+STU0996,female,Group B,some high school,free/reduced,none,0.0,67.0,no,yes,58,77,62,65,65.5,65.5,38.59,High
+STU0530,female,Group A,some college,free/reduced,completed,2.8,99.5,yes,no,78,78,77,74,76.75,76.75,61.98,Medium
+STU0056,male,Group E,some college,standard,completed,5.0,87.6,no,no,85,77,69,84,78.75,78.75,58.72,Medium
+STU0121,male,Group C,bachelor's degree,standard,none,10.0,85.4,yes,yes,76,80,71,76,75.75,75.75,64.92,Medium
+STU0216,male,Group D,associate's degree,standard,completed,8.4,68.6,yes,no,86,82,75,67,77.5,77.5,61.12,Medium
+STU0026,male,Group B,some high school,standard,none,6.4,99.5,yes,yes,80,66,77,71,73.5,73.5,56.7,Medium
+STU0073,female,Group C,bachelor's degree,free/reduced,none,9.2,97.7,yes,yes,78,64,71,74,71.75,71.75,58.25,Medium
+STU0045,male,Group C,bachelor's degree,free/reduced,none,3.9,93.0,yes,yes,80,83,82,73,79.5,79.5,59.95,Medium
+STU0248,female,Group B,master's degree,free/reduced,completed,0.2,86.4,no,yes,82,83,78,80,80.75,80.75,56.91,Medium
+STU0722,male,Group B,bachelor's degree,standard,none,5.2,85.6,yes,no,86,84,90,100,90.0,90.0,67.65,Low
+STU0282,female,Group C,master's degree,standard,completed,5.3,96.8,yes,yes,79,87,67,88,80.25,80.25,68.15,Low
+STU0894,female,Group A,some college,standard,completed,4.9,79.2,yes,yes,92,97,93,86,92.0,92.0,79.14,Low
+STU0915,female,Group A,some college,free/reduced,none,5.6,85.9,no,yes,60,56,61,55,58.0,58.0,42.09,High
+STU0811,male,Group B,associate's degree,standard,none,4.9,76.7,yes,no,79,74,66,67,71.5,71.5,51.21,Medium
+STU0245,male,Group D,associate's degree,free/reduced,completed,0.5,76.8,yes,yes,61,77,63,67,67.0,67.0,46.94,High
+STU0823,female,Group B,master's degree,free/reduced,completed,7.1,64.6,yes,no,62,50,58,60,57.5,57.5,48.68,High
+STU0322,female,Group D,master's degree,free/reduced,none,0.4,89.2,yes,no,84,92,83,80,84.75,84.75,55.76,Medium
+STU0644,male,Group D,bachelor's degree,standard,none,0.8,85.2,no,no,73,81,72,90,79.0,79.0,49.1,High
+STU0159,female,Group B,some high school,standard,completed,5.4,82.7,yes,no,69,71,70,76,71.5,71.5,65.59,Low
+STU0978,female,Group A,associate's degree,standard,completed,7.3,72.6,yes,yes,92,86,90,85,88.25,88.25,84.32,Low
+STU0430,female,Group B,some high school,standard,completed,4.5,85.2,yes,yes,69,65,68,64,66.5,66.5,69.94,Low
+STU0942,female,Group C,high school,standard,none,7.2,100.0,yes,no,67,65,83,75,72.5,72.5,61.66,Medium
+STU0463,male,Group C,some high school,free/reduced,none,3.5,82.2,yes,yes,45,57,50,50,50.5,50.5,33.12,High
+STU0310,female,Group A,some college,free/reduced,none,6.4,90.4,no,no,54,45,57,60,54.0,54.0,36.17,High
+STU0698,female,Group E,master's degree,free/reduced,none,6.6,78.8,yes,no,71,69,69,75,71.0,71.0,45.41,High
+STU0061,female,Group B,bachelor's degree,free/reduced,none,6.1,99.8,yes,no,73,72,70,65,70.0,70.0,56.21,Medium
+STU0885,female,Group A,some high school,free/reduced,none,4.5,84.5,no,yes,51,73,67,61,63.0,63.0,45.38,High
+STU0596,male,Group B,bachelor's degree,free/reduced,none,6.0,100.0,no,no,79,78,72,62,72.75,72.75,57.78,Medium
+STU0768,male,Group C,some college,standard,completed,2.5,61.1,yes,no,77,79,71,81,77.0,77.0,53.52,Medium
+STU0650,female,Group D,some college,free/reduced,completed,6.4,90.3,no,yes,88,85,77,79,82.25,82.25,65.49,Low
+STU0651,male,Group A,high school,free/reduced,none,6.2,78.7,yes,no,44,46,53,43,46.5,46.5,27.51,High
+STU0866,female,Group C,bachelor's degree,free/reduced,completed,9.4,68.4,yes,yes,82,78,71,66,74.25,74.25,64.26,Medium
+STU0669,male,Group D,bachelor's degree,free/reduced,none,5.3,76.6,yes,yes,72,68,64,59,65.75,65.75,52.15,Medium
+STU0299,male,Group D,some college,standard,completed,7.4,77.2,yes,no,70,75,67,53,66.25,66.25,61.13,Medium
+STU0690,male,Group A,bachelor's degree,standard,none,1.2,77.2,no,no,58,64,71,67,65.0,65.0,34.22,High
+STU0315,male,Group A,high school,standard,none,6.1,92.9,yes,no,66,73,81,75,73.75,73.75,47.48,High
+STU0311,male,Group C,associate's degree,standard,none,10.6,74.3,yes,yes,82,85,83,84,83.5,83.5,76.14,Low
+STU0362,male,Group D,master's degree,free/reduced,none,4.4,80.3,yes,no,64,64,59,58,61.25,61.25,35.87,High
+STU0480,male,Group E,bachelor's degree,free/reduced,completed,5.0,75.5,no,yes,83,88,82,80,83.25,83.25,62.29,Medium
+STU0111,female,Group D,some high school,free/reduced,none,6.1,94.4,no,no,43,48,55,61,51.75,51.75,33.02,High
+STU0990,male,Group D,master's degree,standard,completed,5.0,65.4,no,yes,68,70,74,76,72.0,72.0,71.21,Low
+STU0487,male,Group B,associate's degree,standard,none,4.8,76.0,no,no,48,47,53,63,52.75,52.75,27.16,High
+STU0364,male,Group E,high school,free/reduced,none,4.4,84.5,no,yes,71,67,76,69,70.75,70.75,59.28,Medium
+STU0255,female,Group A,some college,free/reduced,completed,7.3,79.6,yes,yes,77,72,80,66,73.75,73.75,65.41,Low
+STU0260,male,Group A,associate's degree,standard,none,0.0,81.1,no,no,52,64,63,47,56.5,56.5,27.89,High
+STU0803,male,Group E,bachelor's degree,free/reduced,completed,9.3,82.4,no,yes,90,93,96,73,88.0,88.0,74.62,Low
+STU0678,male,Group B,some college,free/reduced,completed,7.2,94.5,yes,yes,65,82,68,73,72.0,72.0,65.63,Low
+STU0495,male,Group D,high school,standard,completed,5.3,79.5,yes,no,59,71,81,70,70.25,70.25,52.14,Medium
+STU0671,female,Group C,master's degree,free/reduced,none,4.1,85.5,yes,yes,83,90,99,82,88.5,88.5,75.65,Low
+STU0378,male,Group E,some high school,free/reduced,none,3.7,95.6,yes,no,49,59,74,67,62.25,62.25,38.23,High
+STU0527,female,Group C,some college,free/reduced,completed,8.6,80.2,yes,yes,77,81,76,75,77.25,77.25,75.44,Low
+STU0846,female,Group A,master's degree,free/reduced,none,8.0,79.7,yes,no,76,67,64,80,71.75,71.75,53.51,Medium
+STU0138,female,Group C,master's degree,standard,completed,9.9,89.4,no,no,98,99,95,95,96.75,96.75,83.33,Low
+STU0356,female,Group E,bachelor's degree,standard,completed,5.0,96.1,yes,no,90,84,81,82,84.25,84.25,66.96,Low
+STU0366,female,Group E,associate's degree,free/reduced,completed,3.5,86.5,yes,yes,59,63,71,70,65.75,65.75,57.09,Medium
+STU0943,female,Group E,master's degree,standard,completed,14.2,87.6,yes,no,81,80,82,81,81.0,81.0,76.38,Low
+STU0750,female,Group D,some high school,standard,none,6.2,80.5,yes,no,51,65,73,64,63.25,63.25,39.49,High
+STU0949,male,Group A,some high school,free/reduced,completed,8.6,79.0,yes,no,62,65,83,63,68.25,68.25,61.41,Medium
+STU0830,male,Group A,some high school,standard,none,4.2,69.3,yes,yes,65,68,70,73,69.0,69.0,54.85,Medium
+STU0657,female,Group E,master's degree,free/reduced,none,6.4,74.4,no,no,75,78,76,71,75.0,75.0,42.05,High
+STU0200,male,Group E,master's degree,free/reduced,none,5.0,76.0,no,yes,75,77,75,84,77.75,77.75,48.75,High
+STU0214,male,Group D,some high school,free/reduced,completed,6.2,100.0,yes,no,66,73,65,61,66.25,66.25,42.73,High
+STU0409,male,Group E,high school,standard,none,4.1,88.3,no,yes,52,53,49,61,53.75,53.75,40.99,High
+STU0333,female,Group A,some high school,free/reduced,completed,6.3,73.5,yes,no,62,56,57,58,58.25,58.25,36.73,High
+STU0209,female,Group E,associate's degree,free/reduced,none,8.8,76.3,no,no,66,71,64,66,66.75,66.75,37.31,High
+STU0614,male,Group D,high school,free/reduced,none,11.4,97.6,yes,yes,74,81,83,77,78.75,78.75,72.44,Low
+STU0079,female,Group B,associate's degree,free/reduced,none,6.8,78.1,no,no,67,55,45,70,59.25,59.25,53.17,Medium

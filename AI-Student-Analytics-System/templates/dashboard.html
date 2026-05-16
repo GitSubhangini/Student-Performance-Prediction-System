@@ -1,0 +1,238 @@
+{% extends "base.html" %}
+{% block title %}Dashboard — AI Student Analytics{% endblock %}
+
+{% block content %}
+{% set page_title = "Analytics Dashboard" %}
+{% include "_layout.html" %}
+<div class="page-container">
+
+  <!-- KPI Cards -->
+  <div class="row g-4 mb-4">
+    <div class="col-6 col-xl-3">
+      <div class="kpi-card kpi-blue">
+        <div class="kpi-icon"><i class="bi bi-people-fill"></i></div>
+        <div class="kpi-value">{{ stats.get('total', 0) }}</div>
+        <div class="kpi-label">Total Students</div>
+        <div class="kpi-trend"><i class="bi bi-arrow-up-short"></i>Dataset</div>
+      </div>
+    </div>
+    <div class="col-6 col-xl-3">
+      <div class="kpi-card kpi-purple">
+        <div class="kpi-icon"><i class="bi bi-bar-chart-fill"></i></div>
+        <div class="kpi-value">{{ stats.get('avg', '—') }}</div>
+        <div class="kpi-label">{{ stats.get('score_label', 'Final Score') }}</div>
+        <div class="kpi-trend"><i class="bi bi-dash"></i>Dataset average</div>
+      </div>
+    </div>
+    <div class="col-6 col-xl-3">
+      <div class="kpi-card kpi-red">
+        <div class="kpi-icon"><i class="bi bi-exclamation-triangle-fill"></i></div>
+        <div class="kpi-value">{{ stats.get('high_risk', 0) }}</div>
+        <div class="kpi-label">High Risk Students</div>
+        <div class="kpi-trend"><i class="bi bi-arrow-down-short"></i>Needs attention</div>
+      </div>
+    </div>
+    <div class="col-6 col-xl-3">
+      <div class="kpi-card kpi-green">
+        <div class="kpi-icon"><i class="bi bi-patch-check-fill"></i></div>
+        <div class="kpi-value">{{ stats.get('pass_rate', '—') }}%</div>
+        <div class="kpi-label">Pass Rate</div>
+        <div class="kpi-trend"><i class="bi bi-arrow-up-short"></i>Above 50</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Model Metrics Row -->
+  {% if metrics and metrics.get('all_models') %}
+  <div class="glass-card mb-4">
+    <div class="chart-header"><i class="bi bi-activity me-2"></i>Model Health</div>
+    <div class="row g-3">
+      <div class="col-md-3">
+        <div class="sys-info-item">
+          <div class="sys-label">Active Model</div>
+          <div class="sys-val">{{ metrics.best_model }}</div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="sys-info-item">
+          <div class="sys-label">Target</div>
+          <div class="sys-val">{{ metrics.target or 'final_score' }}</div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="sys-info-item">
+          <div class="sys-label">RMSE</div>
+          <div class="sys-val text-info">{{ metrics.best_rmse }}</div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="sys-info-item">
+          <div class="sys-label">Trained</div>
+          <div class="sys-val">{{ metrics.trained_at or 'N/A' }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row g-4 mb-4">
+    {% for name, m in metrics.all_models.items() %}
+    <div class="col-md-6 col-xl-3">
+      <div class="glass-card model-card {% if name == metrics.best_model %}model-card-best{% endif %}">
+        {% if name == metrics.best_model %}
+        <span class="best-badge"><i class="bi bi-trophy-fill me-1"></i>Best</span>
+        {% endif %}
+        <div class="model-name">{{ name }}</div>
+        <div class="model-metrics">
+          <div class="mm-item"><span>R²</span><strong class="text-success">{{ m.test_r2 }}</strong></div>
+          <div class="mm-item"><span>MAE</span><strong>{{ m.mae }}</strong></div>
+          <div class="mm-item"><span>RMSE</span><strong>{{ m.rmse }}</strong></div>
+          <div class="mm-item"><span>CV R²</span><strong class="text-info">{{ m.cv_r2 }}</strong></div>
+        </div>
+        <div class="progress mt-2" style="height:5px">
+          <div class="progress-bar bg-purple" style="width:{{ (m.test_r2*100)|round|int }}%"></div>
+        </div>
+        <small class="text-muted">Accuracy: {{ m.accuracy }}%</small>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% else %}
+  <div class="alert glass-alert alert-warning mb-4">
+    <i class="bi bi-exclamation-triangle me-2"></i>
+    Model not trained yet.
+    Run <code>python src/pipeline/train_pipeline.py</code> to train.
+  </div>
+  {% endif %}
+
+  <!-- Charts Row 1 -->
+  <div class="row g-4 mb-4">
+    <div class="col-lg-8">
+      <div class="glass-card chart-card">
+        <div class="chart-header"><i class="bi bi-bar-chart me-2"></i>Score Distributions</div>
+        <div id="chartScoreDist" class="chart-area"></div>
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <div class="glass-card chart-card">
+        <div class="chart-header"><i class="bi bi-pie-chart me-2"></i>Risk Levels</div>
+        <div id="chartRiskPie" class="chart-area"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Charts Row 2 -->
+  <div class="row g-4 mb-4">
+    <div class="col-lg-6">
+      <div class="glass-card chart-card">
+        <div class="chart-header"><i class="bi bi-grid-3x3-gap me-2"></i>Correlation Heatmap</div>
+        <div id="chartHeatmap" class="chart-area"></div>
+      </div>
+    </div>
+    <div class="col-lg-6">
+      <div class="glass-card chart-card">
+        <div class="chart-header"><i class="bi bi-bar-chart-steps me-2"></i>Model Comparison</div>
+        <div id="chartModelComp" class="chart-area"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Charts Row 3 -->
+  <div class="row g-4 mb-4">
+    <div class="col-lg-6">
+      <div class="glass-card chart-card">
+        <div class="chart-header"><i class="bi bi-sliders me-2"></i>Top Prediction Drivers</div>
+        <div id="chartFeatureImportance" class="chart-area"></div>
+      </div>
+    </div>
+    <div class="col-lg-6">
+      <div class="glass-card chart-card">
+        <div class="chart-header"><i class="bi bi-diagram-3 me-2"></i>Risk Segment Snapshot</div>
+        <div id="chartRiskSegments" class="chart-area"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Charts Row 4 -->
+  <div class="row g-4 mb-4">
+    <div class="col-lg-6">
+      <div class="glass-card chart-card">
+        <div class="chart-header"><i class="bi bi-gender-ambiguous me-2"></i>Score by Gender</div>
+        <div id="chartGender" class="chart-area"></div>
+      </div>
+    </div>
+    <div class="col-lg-6">
+      <div class="glass-card chart-card">
+        <div class="chart-header"><i class="bi bi-scatter-chart me-2"></i>Attendance vs Score</div>
+        <div id="chartAttend" class="chart-area"></div>
+      </div>
+    </div>
+  </div>
+
+  {% if high_risk %}
+  <div class="glass-card mb-4">
+    <div class="chart-header"><i class="bi bi-exclamation-octagon-fill me-2 text-danger"></i>Recent High-Risk Predictions</div>
+    <div class="table-responsive">
+      <table class="table table-dark-custom">
+        <thead><tr><th>Student</th><th>Score</th><th>Interval</th><th>Confidence</th><th>Date</th></tr></thead>
+        <tbody>
+        {% for p in high_risk %}
+        <tr>
+          <td>{{ p.student_name }}</td>
+          <td><strong>{{ p.predicted_score }}</strong></td>
+          <td>{{ p.prediction_low if p.prediction_low is not none else 'N/A' }} - {{ p.prediction_high if p.prediction_high is not none else 'N/A' }}</td>
+          <td>{{ p.confidence }}%</td>
+          <td class="text-muted">{{ p.created_at.strftime('%Y-%m-%d') }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  {% endif %}
+
+  <!-- Recent Predictions -->
+  {% if recent %}
+  <div class="glass-card mb-4">
+    <div class="chart-header"><i class="bi bi-clock-history me-2"></i>Recent Predictions</div>
+    <div class="table-responsive">
+      <table class="table table-dark-custom">
+        <thead><tr><th>Student</th><th>Score</th><th>Grade</th><th>Risk</th><th>Confidence</th><th>Date</th></tr></thead>
+        <tbody>
+        {% for p in recent %}
+        <tr>
+          <td>{{ p.student_name }}</td>
+          <td><strong>{{ p.predicted_score }}</strong></td>
+          <td><span class="badge bg-{% if p.grade in ['A+','A'] %}success{% elif p.grade=='B' %}info{% elif p.grade in ['C','D'] %}warning{% else %}danger{% endif %}">{{ p.grade }}</span></td>
+          <td><span class="risk-badge risk-{{ p.risk_level.lower() }}">{{ p.risk_level }}</span></td>
+          <td>{{ p.confidence }}%</td>
+          <td class="text-muted">{{ p.created_at.strftime('%Y-%m-%d') }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <div class="mt-2 text-end">
+      <a href="{{ url_for('export_predictions') }}" class="btn btn-sm btn-outline-accent">
+        <i class="bi bi-download me-1"></i>Export CSV
+      </a>
+    </div>
+  </div>
+  {% endif %}
+
+</div>{# end page-container #}
+  </main>
+</div>{# end main-wrapper #}
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static',filename='js/charts.js') }}"></script>
+<script>
+  loadChart("/api/charts/score-distribution", "chartScoreDist");
+  loadChart("/api/charts/risk-pie",           "chartRiskPie");
+  loadChart("/api/charts/heatmap",            "chartHeatmap");
+  loadChart("/api/charts/model-comparison",   "chartModelComp");
+  loadChart("/api/charts/feature-importance", "chartFeatureImportance");
+  loadChart("/api/charts/risk-segments",      "chartRiskSegments");
+  loadChart("/api/charts/gender-scores",      "chartGender");
+  loadChart("/api/charts/attendance-scatter", "chartAttend");
+</script>
+{% endblock %}

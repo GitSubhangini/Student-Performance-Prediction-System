@@ -1,0 +1,55 @@
+{# _layout.html — Sidebar + Topbar shell used by all authenticated pages.
+   Usage: {% include "_layout.html" %}  at the top of {% block content %} #}
+
+<!-- ── SIDEBAR ─────────────────────────────────────────────────── -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-brand">
+    <div class="sidebar-logo"><i class="bi bi-graph-up-arrow"></i></div>
+    <span class="sidebar-brand-text">StudentAI</span>
+  </div>
+  <nav class="sidebar-nav">
+    <div class="nav-section-label">Main</div>
+    <a href="{{ url_for('dashboard') }}"    class="nav-item {% if request.endpoint=='dashboard'    %}active{% endif %}"><i class="bi bi-speedometer2"></i><span>Dashboard</span></a>
+    <a href="{{ url_for('predict_view') }}" class="nav-item {% if request.endpoint=='predict_view' %}active{% endif %}"><i class="bi bi-cpu-fill"></i><span>Prediction</span></a>
+    <a href="{{ url_for('report') }}"       class="nav-item {% if request.endpoint=='report'       %}active{% endif %}"><i class="bi bi-file-earmark-bar-graph-fill"></i><span>Reports</span></a>
+    <a href="{{ url_for('upload_csv') }}"   class="nav-item {% if request.endpoint in ['upload_csv','export_batch_csv','download_template'] %}active{% endif %}"><i class="bi bi-cloud-upload-fill"></i><span>CSV Upload</span></a>
+    {% if current_user.is_admin %}
+    <div class="nav-section-label mt-2">Admin</div>
+    <a href="{{ url_for('admin') }}" class="nav-item {% if request.endpoint=='admin' %}active{% endif %}"><i class="bi bi-shield-fill-check"></i><span>Admin Panel</span></a>
+    {% endif %}
+  </nav>
+  <div class="sidebar-footer">
+    <div class="sidebar-user">
+      <div class="user-avatar">{{ current_user.username[0].upper() }}</div>
+      <div class="user-info">
+        <div class="user-name">{{ current_user.username }}</div>
+        <div class="user-role">{{ 'Admin' if current_user.is_admin else 'User' }}</div>
+      </div>
+    </div>
+    <a href="{{ url_for('logout') }}" class="btn-logout" title="Logout"><i class="bi bi-box-arrow-right"></i></a>
+  </div>
+</aside>
+
+<!-- ── MAIN WRAPPER ──────────────────────────────────────────────── -->
+<div class="main-wrapper" id="mainWrapper">
+  <header class="topbar">
+    <button class="sidebar-toggle" id="sidebarToggle"><i class="bi bi-list"></i></button>
+    <div class="topbar-title">{{ page_title | default('Dashboard') }}</div>
+    <div class="topbar-actions">
+      <button class="theme-toggle" id="themeToggle" title="Toggle dark/light mode">
+        <i class="bi bi-moon-fill" id="themeIcon"></i>
+      </button>
+      <span class="status-badge"><i class="bi bi-circle-fill text-success me-1" style="font-size:.45rem"></i>Live</span>
+    </div>
+  </header>
+
+  <!-- Flash messages -->
+  <div class="px-4 pt-2">
+    {% for cat, msg in get_flashed_messages(with_categories=true) %}
+    <div class="alert alert-{{ cat }} alert-dismissible fade show glass-alert" role="alert">
+      {{ msg }}<button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"></button>
+    </div>
+    {% endfor %}
+  </div>
+
+  <main class="main-content">

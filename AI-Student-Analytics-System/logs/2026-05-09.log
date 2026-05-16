@@ -1,0 +1,237 @@
+[2026-05-09 22:19:04]  INFO      TrainPipeline  >>  =======================================================
+[2026-05-09 22:19:04]  INFO      TrainPipeline  >>    TRAINING PIPELINE STARTED
+[2026-05-09 22:19:04]  INFO      TrainPipeline  >>  =======================================================
+[2026-05-09 22:19:04]  INFO      DataIngestion  >>  Data Ingestion started.
+[2026-05-09 22:19:04]  INFO      DataIngestion  >>  Raw dataset loaded: 1000 rows x 16 cols
+[2026-05-09 22:19:04]  INFO      DataIngestion  >>  After validation: 1000 rows
+[2026-05-09 22:19:04]  INFO      DataIngestion  >>  Train: 800 rows | Test: 200 rows
+[2026-05-09 22:19:04]  INFO      DataIngestion  >>  Train / Test CSVs saved to artifacts/
+[2026-05-09 22:19:04]  INFO      DataTransformation  >>  Data Transformation started.
+[2026-05-09 22:19:04]  INFO      DataTransformation  >>  X_train shape after transform: (800, 27)
+[2026-05-09 22:19:04]  INFO      DataTransformation  >>  X_test  shape after transform: (200, 27)
+[2026-05-09 22:19:04]  INFO      StudentAnalytics  >>  Artifact saved  -> artifacts\preprocessor.pkl
+[2026-05-09 22:19:04]  INFO      ModelTrainer  >>  Model Training started.
+[2026-05-09 22:19:05]  WARNING   ModelTrainer  >>  CatBoost not installed — skipping.
+[2026-05-09 22:19:05]  INFO      ModelTrainer  >>  Training: Linear Regression
+[2026-05-09 22:19:07]  INFO      ModelTrainer  >>    Linear Regression: test_R2=1.0  MAE=0.0  RMSE=0.0  CV_R2=1.0
+[2026-05-09 22:19:07]  INFO      ModelTrainer  >>  Training: Ridge Regression
+[2026-05-09 22:19:09]  INFO      ModelTrainer  >>    Ridge Regression: test_R2=1.0  MAE=0.0044  RMSE=0.0056  CV_R2=1.0
+[2026-05-09 22:19:09]  INFO      ModelTrainer  >>  Training: Random Forest
+[2026-05-09 22:19:11]  INFO      ModelTrainer  >>    Random Forest: test_R2=0.9956  MAE=0.4766  RMSE=0.7655  CV_R2=0.9932
+[2026-05-09 22:19:11]  INFO      ModelTrainer  >>  Training: XGBoost
+[2026-05-09 22:19:13]  INFO      ModelTrainer  >>    XGBoost: test_R2=0.989  MAE=0.5188  RMSE=1.2089  CV_R2=0.9953
+[2026-05-09 22:19:13]  INFO      ModelTrainer  >>  Best model: Linear Regression  (R2 = 1.0)
+[2026-05-09 22:19:13]  INFO      StudentAnalytics  >>  Artifact saved  -> artifacts\model.pkl
+[2026-05-09 22:19:13]  INFO      ModelTrainer  >>  Metrics saved to artifacts/metrics.json
+[2026-05-09 22:19:13]  INFO      TrainPipeline  >>  =======================================================
+[2026-05-09 22:19:13]  INFO      TrainPipeline  >>    TRAINING PIPELINE COMPLETE
+[2026-05-09 22:19:13]  INFO      TrainPipeline  >>    Best Model : Linear Regression
+[2026-05-09 22:19:13]  INFO      TrainPipeline  >>    Best R2    : 1.0
+[2026-05-09 22:19:13]  INFO      TrainPipeline  >>  =======================================================
+[2026-05-09 22:36:38]  INFO      StudentAnalytics  >>  Artifact loaded <- artifacts\model.pkl
+[2026-05-09 22:36:39]  INFO      StudentAnalytics  >>  Artifact loaded <- artifacts\preprocessor.pkl
+[2026-05-09 22:36:39]  INFO      PredictionPipeline  >>  PredictPipeline ready.
+[2026-05-09 23:01:42]  INFO      TrainPipeline  >>  =======================================================
+[2026-05-09 23:01:42]  INFO      TrainPipeline  >>    TRAINING PIPELINE STARTED
+[2026-05-09 23:01:42]  INFO      TrainPipeline  >>  =======================================================
+[2026-05-09 23:01:42]  INFO      DataIngestion  >>  Data Ingestion started.
+[2026-05-09 23:01:42]  INFO      DataIngestion  >>  Raw dataset loaded: 1000 rows x 18 cols
+[2026-05-09 23:01:42]  INFO      DataIngestion  >>  After validation: 1000 rows
+[2026-05-09 23:01:42]  INFO      DataIngestion  >>  Train: 800 rows | Test: 200 rows
+[2026-05-09 23:01:42]  INFO      DataIngestion  >>  Train / Test CSVs saved to artifacts/
+[2026-05-09 23:01:42]  INFO      DataTransformation  >>  Data Transformation started.
+[2026-05-09 23:01:42]  INFO      DataTransformation  >>  X_train shape after transform: (800, 27)
+[2026-05-09 23:01:42]  INFO      DataTransformation  >>  X_test  shape after transform: (200, 27)
+[2026-05-09 23:01:42]  INFO      StudentAnalytics  >>  Artifact saved  -> artifacts\preprocessor.pkl
+[2026-05-09 23:01:42]  INFO      ModelTrainer  >>  Model Training started.
+[2026-05-09 23:01:42]  INFO      ModelTrainer  >>  Training: Linear Regression
+[2026-05-09 23:01:44]  INFO      ModelTrainer  >>    Linear Regression: test_R2=0.8209  MAE=4.8465  RMSE=6.0296  CV_R2=0.7992
+[2026-05-09 23:01:44]  INFO      ModelTrainer  >>  Training: Ridge Regression
+[2026-05-09 23:01:46]  INFO      ModelTrainer  >>    Ridge Regression: test_R2=0.8209  MAE=4.8457  RMSE=6.0285  CV_R2=0.7992
+[2026-05-09 23:01:46]  INFO      ModelTrainer  >>  Training: Random Forest
+[2026-05-09 23:01:48]  INFO      ModelTrainer  >>    Random Forest: test_R2=0.7748  MAE=5.4649  RMSE=6.7603  CV_R2=0.696
+[2026-05-09 23:01:48]  INFO      ModelTrainer  >>  Training: Gradient Boosting
+[2026-05-09 23:01:49]  INFO      ModelTrainer  >>    Gradient Boosting: test_R2=0.8176  MAE=4.8964  RMSE=6.0836  CV_R2=0.7435
+[2026-05-09 23:01:49]  INFO      ModelTrainer  >>  Training: XGBoost
+[2026-05-09 23:01:51]  INFO      ModelTrainer  >>    XGBoost: test_R2=0.8195  MAE=4.7439  RMSE=6.0516  CV_R2=0.7387
+[2026-05-09 23:01:51]  INFO      ModelTrainer  >>  Best model: Linear Regression (R2 = 0.8209)
+[2026-05-09 23:01:51]  INFO      StudentAnalytics  >>  Artifact saved  -> artifacts\model.pkl
+[2026-05-09 23:01:51]  INFO      ModelTrainer  >>  Metrics saved to artifacts/metrics.json
+[2026-05-09 23:01:51]  INFO      TrainPipeline  >>  =======================================================
+[2026-05-09 23:01:51]  INFO      TrainPipeline  >>    TRAINING PIPELINE COMPLETE
+[2026-05-09 23:01:51]  INFO      TrainPipeline  >>    Best Model : Linear Regression
+[2026-05-09 23:01:51]  INFO      TrainPipeline  >>    Best R2    : 0.8209
+[2026-05-09 23:01:51]  INFO      TrainPipeline  >>  =======================================================
+[2026-05-09 23:02:00]  INFO      TrainPipeline  >>  =======================================================
+[2026-05-09 23:02:00]  INFO      TrainPipeline  >>    TRAINING PIPELINE STARTED
+[2026-05-09 23:02:00]  INFO      TrainPipeline  >>  =======================================================
+[2026-05-09 23:02:00]  INFO      DataIngestion  >>  Data Ingestion started.
+[2026-05-09 23:02:00]  INFO      DataIngestion  >>  Raw dataset loaded: 260 rows x 18 cols
+[2026-05-09 23:02:00]  INFO      DataIngestion  >>  After validation: 260 rows
+[2026-05-09 23:02:00]  INFO      DataIngestion  >>  Train: 208 rows | Test: 52 rows
+[2026-05-09 23:02:00]  INFO      DataIngestion  >>  Train / Test CSVs saved to artifacts/
+[2026-05-09 23:02:00]  INFO      DataTransformation  >>  Data Transformation started.
+[2026-05-09 23:02:00]  INFO      DataTransformation  >>  X_train shape after transform: (208, 27)
+[2026-05-09 23:02:00]  INFO      DataTransformation  >>  X_test  shape after transform: (52, 27)
+[2026-05-09 23:02:00]  INFO      StudentAnalytics  >>  Artifact saved  -> artifacts\preprocessor.pkl
+[2026-05-09 23:02:00]  INFO      ModelTrainer  >>  Model Training started.
+[2026-05-09 23:02:00]  INFO      ModelTrainer  >>  Training: Linear Regression
+[2026-05-09 23:02:03]  INFO      ModelTrainer  >>    Linear Regression: test_R2=0.657  MAE=4.7109  RMSE=5.9375  CV_R2=0.795
+[2026-05-09 23:02:03]  INFO      ModelTrainer  >>  Training: Ridge Regression
+[2026-05-09 23:02:04]  INFO      ModelTrainer  >>    Ridge Regression: test_R2=0.6632  MAE=4.6557  RMSE=5.8835  CV_R2=0.7959
+[2026-05-09 23:02:04]  INFO      ModelTrainer  >>  Training: Random Forest
+[2026-05-09 23:02:07]  INFO      ModelTrainer  >>    Random Forest: test_R2=0.5729  MAE=5.3578  RMSE=6.6252  CV_R2=0.6756
+[2026-05-09 23:02:07]  INFO      ModelTrainer  >>  Training: Gradient Boosting
+[2026-05-09 23:02:07]  INFO      ModelTrainer  >>    Gradient Boosting: test_R2=0.5922  MAE=5.1548  RMSE=6.4741  CV_R2=0.6913
+[2026-05-09 23:02:07]  INFO      ModelTrainer  >>  Training: XGBoost
+[2026-05-09 23:02:09]  INFO      ModelTrainer  >>    XGBoost: test_R2=0.5785  MAE=5.3886  RMSE=6.5819  CV_R2=0.7107
+[2026-05-09 23:02:09]  INFO      ModelTrainer  >>  Best model: Ridge Regression (R2 = 0.6632)
+[2026-05-09 23:02:09]  INFO      StudentAnalytics  >>  Artifact saved  -> artifacts\model.pkl
+[2026-05-09 23:02:09]  INFO      ModelTrainer  >>  Metrics saved to artifacts/metrics.json
+[2026-05-09 23:02:09]  INFO      TrainPipeline  >>  =======================================================
+[2026-05-09 23:02:09]  INFO      TrainPipeline  >>    TRAINING PIPELINE COMPLETE
+[2026-05-09 23:02:09]  INFO      TrainPipeline  >>    Best Model : Ridge Regression
+[2026-05-09 23:02:09]  INFO      TrainPipeline  >>    Best R2    : 0.6632
+[2026-05-09 23:02:09]  INFO      TrainPipeline  >>  =======================================================
+[2026-05-09 23:02:09]  INFO      StudentAnalytics  >>  Artifact loaded <- artifacts\model.pkl
+[2026-05-09 23:02:09]  INFO      StudentAnalytics  >>  Artifact loaded <- artifacts\preprocessor.pkl
+[2026-05-09 23:02:09]  INFO      PredictionPipeline  >>  PredictPipeline ready.
+[2026-05-09 23:02:10]  INFO      StudentAnalytics  >>  Artifact loaded <- artifacts\model.pkl
+[2026-05-09 23:02:10]  INFO      StudentAnalytics  >>  Artifact loaded <- artifacts\preprocessor.pkl
+[2026-05-09 23:02:10]  INFO      PredictionPipeline  >>  PredictPipeline ready.
+[2026-05-09 23:02:41]  INFO      TrainPipeline  >>  =======================================================
+[2026-05-09 23:02:41]  INFO      TrainPipeline  >>    TRAINING PIPELINE STARTED
+[2026-05-09 23:02:41]  INFO      TrainPipeline  >>  =======================================================
+[2026-05-09 23:02:41]  INFO      DataIngestion  >>  Data Ingestion started.
+[2026-05-09 23:02:41]  INFO      DataIngestion  >>  Raw dataset loaded: 1000 rows x 18 cols
+[2026-05-09 23:02:41]  INFO      DataIngestion  >>  After validation: 1000 rows
+[2026-05-09 23:02:41]  INFO      DataIngestion  >>  Train: 800 rows | Test: 200 rows
+[2026-05-09 23:02:41]  INFO      DataIngestion  >>  Train / Test CSVs saved to artifacts/
+[2026-05-09 23:02:41]  INFO      DataTransformation  >>  Data Transformation started.
+[2026-05-09 23:02:41]  INFO      DataTransformation  >>  X_train shape after transform: (800, 27)
+[2026-05-09 23:02:41]  INFO      DataTransformation  >>  X_test  shape after transform: (200, 27)
+[2026-05-09 23:02:41]  INFO      StudentAnalytics  >>  Artifact saved  -> artifacts\preprocessor.pkl
+[2026-05-09 23:02:41]  INFO      ModelTrainer  >>  Model Training started.
+[2026-05-09 23:02:41]  INFO      ModelTrainer  >>  Training: Linear Regression
+[2026-05-09 23:02:43]  INFO      ModelTrainer  >>    Linear Regression: test_R2=0.8081  MAE=4.4843  RMSE=5.7763  CV_R2=0.821
+[2026-05-09 23:02:43]  INFO      ModelTrainer  >>  Training: Ridge Regression
+[2026-05-09 23:02:45]  INFO      ModelTrainer  >>    Ridge Regression: test_R2=0.808  MAE=4.4837  RMSE=5.7768  CV_R2=0.821
+[2026-05-09 23:02:45]  INFO      ModelTrainer  >>  Training: Random Forest
+[2026-05-09 23:02:47]  INFO      ModelTrainer  >>    Random Forest: test_R2=0.708  MAE=5.7078  RMSE=7.1242  CV_R2=0.7386
+[2026-05-09 23:02:47]  INFO      ModelTrainer  >>  Training: Gradient Boosting
+[2026-05-09 23:02:47]  INFO      ModelTrainer  >>    Gradient Boosting: test_R2=0.7579  MAE=5.1333  RMSE=6.4874  CV_R2=0.7768
+[2026-05-09 23:02:47]  INFO      ModelTrainer  >>  Training: XGBoost
+[2026-05-09 23:02:49]  INFO      ModelTrainer  >>    XGBoost: test_R2=0.7585  MAE=5.1931  RMSE=6.479  CV_R2=0.774
+[2026-05-09 23:02:49]  INFO      ModelTrainer  >>  Best model: Linear Regression (R2 = 0.8081)
+[2026-05-09 23:02:49]  INFO      StudentAnalytics  >>  Artifact saved  -> artifacts\model.pkl
+[2026-05-09 23:02:49]  INFO      ModelTrainer  >>  Metrics saved to artifacts/metrics.json
+[2026-05-09 23:02:49]  INFO      TrainPipeline  >>  =======================================================
+[2026-05-09 23:02:49]  INFO      TrainPipeline  >>    TRAINING PIPELINE COMPLETE
+[2026-05-09 23:02:49]  INFO      TrainPipeline  >>    Best Model : Linear Regression
+[2026-05-09 23:02:49]  INFO      TrainPipeline  >>    Best R2    : 0.8081
+[2026-05-09 23:02:49]  INFO      TrainPipeline  >>  =======================================================
+[2026-05-09 23:02:49]  INFO      StudentAnalytics  >>  Artifact loaded <- artifacts\model.pkl
+[2026-05-09 23:02:49]  INFO      StudentAnalytics  >>  Artifact loaded <- artifacts\preprocessor.pkl
+[2026-05-09 23:02:49]  INFO      PredictionPipeline  >>  PredictPipeline ready.
+[2026-05-09 23:02:50]  INFO      StudentAnalytics  >>  Artifact loaded <- artifacts\model.pkl
+[2026-05-09 23:02:50]  INFO      StudentAnalytics  >>  Artifact loaded <- artifacts\preprocessor.pkl
+[2026-05-09 23:02:50]  INFO      PredictionPipeline  >>  PredictPipeline ready.
+[2026-05-09 23:03:02]  INFO      TrainPipeline  >>  =======================================================
+[2026-05-09 23:03:02]  INFO      TrainPipeline  >>    TRAINING PIPELINE STARTED
+[2026-05-09 23:03:02]  INFO      TrainPipeline  >>  =======================================================
+[2026-05-09 23:03:02]  INFO      DataIngestion  >>  Data Ingestion started.
+[2026-05-09 23:03:02]  INFO      DataIngestion  >>  Raw dataset loaded: 1000 rows x 18 cols
+[2026-05-09 23:03:02]  INFO      DataIngestion  >>  After validation: 1000 rows
+[2026-05-09 23:03:02]  INFO      DataIngestion  >>  Train: 800 rows | Test: 200 rows
+[2026-05-09 23:03:02]  INFO      DataIngestion  >>  Train / Test CSVs saved to artifacts/
+[2026-05-09 23:03:02]  INFO      DataTransformation  >>  Data Transformation started.
+[2026-05-09 23:03:02]  INFO      DataTransformation  >>  X_train shape after transform: (800, 27)
+[2026-05-09 23:03:02]  INFO      DataTransformation  >>  X_test  shape after transform: (200, 27)
+[2026-05-09 23:03:02]  INFO      StudentAnalytics  >>  Artifact saved  -> artifacts\preprocessor.pkl
+[2026-05-09 23:03:02]  INFO      ModelTrainer  >>  Model Training started.
+[2026-05-09 23:03:02]  INFO      ModelTrainer  >>  Training: Linear Regression
+[2026-05-09 23:03:04]  INFO      ModelTrainer  >>    Linear Regression: test_R2=0.8209  MAE=4.8465  RMSE=6.0296  CV_R2=0.7992
+[2026-05-09 23:03:04]  INFO      ModelTrainer  >>  Training: Ridge Regression
+[2026-05-09 23:03:06]  INFO      ModelTrainer  >>    Ridge Regression: test_R2=0.8209  MAE=4.8457  RMSE=6.0285  CV_R2=0.7992
+[2026-05-09 23:03:06]  INFO      ModelTrainer  >>  Training: Random Forest
+[2026-05-09 23:03:08]  INFO      ModelTrainer  >>    Random Forest: test_R2=0.7748  MAE=5.4649  RMSE=6.7603  CV_R2=0.696
+[2026-05-09 23:03:08]  INFO      ModelTrainer  >>  Training: Gradient Boosting
+[2026-05-09 23:03:08]  INFO      ModelTrainer  >>    Gradient Boosting: test_R2=0.8176  MAE=4.8964  RMSE=6.0836  CV_R2=0.7435
+[2026-05-09 23:03:08]  INFO      ModelTrainer  >>  Training: XGBoost
+[2026-05-09 23:03:10]  INFO      ModelTrainer  >>    XGBoost: test_R2=0.8195  MAE=4.7439  RMSE=6.0516  CV_R2=0.7387
+[2026-05-09 23:03:10]  INFO      ModelTrainer  >>  Best model: Linear Regression (R2 = 0.8209)
+[2026-05-09 23:03:10]  INFO      StudentAnalytics  >>  Artifact saved  -> artifacts\model.pkl
+[2026-05-09 23:03:10]  INFO      ModelTrainer  >>  Metrics saved to artifacts/metrics.json
+[2026-05-09 23:03:10]  INFO      TrainPipeline  >>  =======================================================
+[2026-05-09 23:03:10]  INFO      TrainPipeline  >>    TRAINING PIPELINE COMPLETE
+[2026-05-09 23:03:10]  INFO      TrainPipeline  >>    Best Model : Linear Regression
+[2026-05-09 23:03:10]  INFO      TrainPipeline  >>    Best R2    : 0.8209
+[2026-05-09 23:03:10]  INFO      TrainPipeline  >>  =======================================================
+[2026-05-09 23:07:41]  INFO      TrainPipeline  >>  =======================================================
+[2026-05-09 23:07:41]  INFO      TrainPipeline  >>    TRAINING PIPELINE STARTED
+[2026-05-09 23:07:41]  INFO      TrainPipeline  >>  =======================================================
+[2026-05-09 23:07:41]  INFO      DataIngestion  >>  Data Ingestion started.
+[2026-05-09 23:07:41]  INFO      DataIngestion  >>  Raw dataset loaded: 1000 rows x 18 cols
+[2026-05-09 23:07:41]  INFO      DataIngestion  >>  After validation: 1000 rows
+[2026-05-09 23:07:41]  INFO      DataIngestion  >>  Train: 800 rows | Test: 200 rows
+[2026-05-09 23:07:41]  INFO      DataIngestion  >>  Train / Test CSVs saved to artifacts/
+[2026-05-09 23:07:41]  INFO      DataTransformation  >>  Data Transformation started.
+[2026-05-09 23:07:41]  INFO      DataTransformation  >>  X_train shape after transform: (800, 27)
+[2026-05-09 23:07:41]  INFO      DataTransformation  >>  X_test  shape after transform: (200, 27)
+[2026-05-09 23:07:41]  INFO      StudentAnalytics  >>  Artifact saved  -> artifacts\preprocessor.pkl
+[2026-05-09 23:07:41]  INFO      ModelTrainer  >>  Model Training started.
+[2026-05-09 23:07:41]  INFO      ModelTrainer  >>  Training: Linear Regression
+[2026-05-09 23:07:44]  INFO      ModelTrainer  >>    Linear Regression: test_R2=0.8081  MAE=4.4843  RMSE=5.7763  CV_R2=0.821
+[2026-05-09 23:07:44]  INFO      ModelTrainer  >>  Training: Ridge Regression
+[2026-05-09 23:07:45]  INFO      ModelTrainer  >>    Ridge Regression: test_R2=0.808  MAE=4.4837  RMSE=5.7768  CV_R2=0.821
+[2026-05-09 23:07:45]  INFO      ModelTrainer  >>  Training: Random Forest
+[2026-05-09 23:07:48]  INFO      ModelTrainer  >>    Random Forest: test_R2=0.708  MAE=5.7078  RMSE=7.1242  CV_R2=0.7386
+[2026-05-09 23:07:48]  INFO      ModelTrainer  >>  Training: Gradient Boosting
+[2026-05-09 23:07:48]  INFO      ModelTrainer  >>    Gradient Boosting: test_R2=0.7579  MAE=5.1333  RMSE=6.4874  CV_R2=0.7768
+[2026-05-09 23:07:48]  INFO      ModelTrainer  >>  Training: XGBoost
+[2026-05-09 23:07:50]  INFO      ModelTrainer  >>    XGBoost: test_R2=0.7585  MAE=5.1931  RMSE=6.479  CV_R2=0.774
+[2026-05-09 23:07:50]  INFO      ModelTrainer  >>  Best model: Linear Regression (R2 = 0.8081)
+[2026-05-09 23:07:50]  INFO      StudentAnalytics  >>  Artifact saved  -> artifacts\model.pkl
+[2026-05-09 23:07:50]  INFO      ModelTrainer  >>  Metrics saved to artifacts/metrics.json
+[2026-05-09 23:07:50]  INFO      TrainPipeline  >>  =======================================================
+[2026-05-09 23:07:50]  INFO      TrainPipeline  >>    TRAINING PIPELINE COMPLETE
+[2026-05-09 23:07:50]  INFO      TrainPipeline  >>    Best Model : Linear Regression
+[2026-05-09 23:07:50]  INFO      TrainPipeline  >>    Best R2    : 0.8081
+[2026-05-09 23:07:50]  INFO      TrainPipeline  >>  =======================================================
+[2026-05-09 23:07:50]  INFO      StudentAnalytics  >>  Artifact loaded <- artifacts\model.pkl
+[2026-05-09 23:07:50]  INFO      StudentAnalytics  >>  Artifact loaded <- artifacts\preprocessor.pkl
+[2026-05-09 23:07:50]  INFO      PredictionPipeline  >>  PredictPipeline ready.
+[2026-05-09 23:07:51]  INFO      StudentAnalytics  >>  Artifact loaded <- artifacts\model.pkl
+[2026-05-09 23:07:51]  INFO      StudentAnalytics  >>  Artifact loaded <- artifacts\preprocessor.pkl
+[2026-05-09 23:07:51]  INFO      PredictionPipeline  >>  PredictPipeline ready.
+[2026-05-09 23:07:59]  INFO      TrainPipeline  >>  =======================================================
+[2026-05-09 23:07:59]  INFO      TrainPipeline  >>    TRAINING PIPELINE STARTED
+[2026-05-09 23:07:59]  INFO      TrainPipeline  >>  =======================================================
+[2026-05-09 23:07:59]  INFO      DataIngestion  >>  Data Ingestion started.
+[2026-05-09 23:07:59]  INFO      DataIngestion  >>  Raw dataset loaded: 1000 rows x 18 cols
+[2026-05-09 23:07:59]  INFO      DataIngestion  >>  After validation: 1000 rows
+[2026-05-09 23:07:59]  INFO      DataIngestion  >>  Train: 800 rows | Test: 200 rows
+[2026-05-09 23:07:59]  INFO      DataIngestion  >>  Train / Test CSVs saved to artifacts/
+[2026-05-09 23:07:59]  INFO      DataTransformation  >>  Data Transformation started.
+[2026-05-09 23:07:59]  INFO      DataTransformation  >>  X_train shape after transform: (800, 27)
+[2026-05-09 23:07:59]  INFO      DataTransformation  >>  X_test  shape after transform: (200, 27)
+[2026-05-09 23:07:59]  INFO      StudentAnalytics  >>  Artifact saved  -> artifacts\preprocessor.pkl
+[2026-05-09 23:07:59]  INFO      ModelTrainer  >>  Model Training started.
+[2026-05-09 23:08:00]  INFO      ModelTrainer  >>  Training: Linear Regression
+[2026-05-09 23:08:02]  INFO      ModelTrainer  >>    Linear Regression: test_R2=0.8209  MAE=4.8465  RMSE=6.0296  CV_R2=0.7992
+[2026-05-09 23:08:02]  INFO      ModelTrainer  >>  Training: Ridge Regression
+[2026-05-09 23:08:04]  INFO      ModelTrainer  >>    Ridge Regression: test_R2=0.8209  MAE=4.8457  RMSE=6.0285  CV_R2=0.7992
+[2026-05-09 23:08:04]  INFO      ModelTrainer  >>  Training: Random Forest
+[2026-05-09 23:08:06]  INFO      ModelTrainer  >>    Random Forest: test_R2=0.7748  MAE=5.4649  RMSE=6.7603  CV_R2=0.696
+[2026-05-09 23:08:06]  INFO      ModelTrainer  >>  Training: Gradient Boosting
+[2026-05-09 23:08:07]  INFO      ModelTrainer  >>    Gradient Boosting: test_R2=0.8176  MAE=4.8964  RMSE=6.0836  CV_R2=0.7435
+[2026-05-09 23:08:07]  INFO      ModelTrainer  >>  Training: XGBoost
+[2026-05-09 23:08:08]  INFO      ModelTrainer  >>    XGBoost: test_R2=0.8195  MAE=4.7439  RMSE=6.0516  CV_R2=0.7387
+[2026-05-09 23:08:08]  INFO      ModelTrainer  >>  Best model: Linear Regression (R2 = 0.8209)
+[2026-05-09 23:08:08]  INFO      StudentAnalytics  >>  Artifact saved  -> artifacts\model.pkl
+[2026-05-09 23:08:08]  INFO      ModelTrainer  >>  Metrics saved to artifacts/metrics.json
+[2026-05-09 23:08:08]  INFO      TrainPipeline  >>  =======================================================
+[2026-05-09 23:08:08]  INFO      TrainPipeline  >>    TRAINING PIPELINE COMPLETE
+[2026-05-09 23:08:08]  INFO      TrainPipeline  >>    Best Model : Linear Regression
+[2026-05-09 23:08:08]  INFO      TrainPipeline  >>    Best R2    : 0.8209
+[2026-05-09 23:08:08]  INFO      TrainPipeline  >>  =======================================================

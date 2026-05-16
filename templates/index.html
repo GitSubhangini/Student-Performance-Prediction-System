@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}" />
+  <title>Student Performance Prediction</title>
+  <meta name="description" content="Predict a student's math score instantly using AI." />
+
+  <!-- Bootstrap 5 — for layout, cards, buttons, badges -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+  <!-- Bootstrap Icons — nice icon library -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+
+  <!-- Google Fonts — Inter (clean, modern font) -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+  <!-- Our custom CSS -->
+  <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet" />
+</head>
+
+<body>
+
+<!-- ═══════════════ NAVBAR ═══════════════ -->
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top glass-nav">
+  <div class="container">
+    <a class="navbar-brand d-flex align-items-center gap-2" href="#">
+      <div class="brand-icon"><i class="bi bi-mortarboard-fill"></i></div>
+      <div>
+        <span class="brand-name">StudentPredict</span>
+        <span class="brand-tag ms-1">ML</span>
+      </div>
+    </a>
+    <div class="ms-auto d-flex align-items-center gap-3">
+      <span class="nav-badge">
+        <i class="bi bi-circle-fill text-success me-1" style="font-size:0.5rem;"></i>
+        Model Active
+      </span>
+    </div>
+  </div>
+</nav>
+
+<!-- ═══════════════ HERO SECTION ═══════════════ -->
+<section class="hero-section">
+  <!-- Floating background blobs -->
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+
+  <div class="container position-relative">
+    <div class="row justify-content-center">
+      <div class="col-lg-7 col-xl-6 text-center">
+
+        <!-- Badge -->
+        <div class="hero-badge mb-4">
+          <i class="bi bi-cpu-fill me-2"></i>Powered by Linear Regression AI
+        </div>
+
+        <!-- Title -->
+        <h1 class="hero-title">
+          Predict Student<br/>
+          <span class="gradient-text">Math Score</span>
+        </h1>
+        <p class="hero-subtitle">
+          Enter a student's <strong>Reading</strong> and <strong>Writing</strong> scores —
+          our Machine Learning model instantly predicts their <strong>Math Score</strong>.
+        </p>
+
+        <!-- ═══ PREDICTION FORM CARD ═══ -->
+        <div class="form-card mt-4">
+
+          <!-- Error Alert -->
+          {% if error %}
+          <div class="alert-custom alert-danger-custom mb-4">
+            <i class="bi bi-exclamation-triangle-fill me-2"></i>{{ error }}
+          </div>
+          {% endif %}
+
+          <form action="/predict" method="POST" id="predictForm" novalidate>
+
+            <!-- Reading Score -->
+            <div class="input-group-custom mb-3">
+              <div class="input-icon">
+                <i class="bi bi-book-fill"></i>
+              </div>
+              <div class="input-field-wrap">
+                <label for="reading_score">Reading Score</label>
+                <input
+                  type="number"
+                  id="reading_score"
+                  name="reading_score"
+                  class="score-input"
+                  placeholder="Enter 0 – 100"
+                  min="0" max="100" step="0.1"
+                  value="{{ reading or '' }}"
+                  required
+                />
+              </div>
+            </div>
+
+            <!-- Writing Score -->
+            <div class="input-group-custom mb-4">
+              <div class="input-icon">
+                <i class="bi bi-pencil-fill"></i>
+              </div>
+              <div class="input-field-wrap">
+                <label for="writing_score">Writing Score</label>
+                <input
+                  type="number"
+                  id="writing_score"
+                  name="writing_score"
+                  class="score-input"
+                  placeholder="Enter 0 – 100"
+                  min="0" max="100" step="0.1"
+                  value="{{ writing or '' }}"
+                  required
+                />
+              </div>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn-predict" id="submitBtn">
+              <i class="bi bi-lightning-charge-fill me-2"></i>
+              Predict Math Score
+              <div class="btn-shine"></div>
+            </button>
+
+          </form>
+        </div>
+        <!-- /form card -->
+
+        <!-- ═══ RESULT BOX ═══ -->
+        {% if prediction is not none %}
+        <div class="result-box mt-4" id="resultBox">
+
+          <div class="result-header">
+            <i class="bi bi-trophy-fill result-trophy"></i>
+            <span>Prediction Result</span>
+          </div>
+
+          <!-- Big Score Number -->
+          <div class="result-score-wrap">
+            <div class="result-score" id="animScore" data-target="{{ prediction }}">0</div>
+            <div class="result-score-label">/ 100</div>
+          </div>
+
+          <!-- Grade Badge -->
+          <div class="result-grade-badge grade-{{ badge }}">
+            {{ grade }} — {{ label }}
+          </div>
+
+          <!-- Score Progress Bar -->
+          <div class="result-bar-wrap mt-3">
+            <div class="result-bar-track">
+              <div class="result-bar-fill grade-bar-{{ badge }}"
+                   id="resultBar"
+                   style="width: 0%"
+                   data-width="{{ prediction }}%">
+              </div>
+            </div>
+            <div class="d-flex justify-content-between bar-ticks">
+              <span>0</span><span>25</span><span>50</span><span>75</span><span>100</span>
+            </div>
+          </div>
+
+          <!-- Input recap -->
+          <div class="result-recap mt-3">
+            <span><i class="bi bi-book me-1"></i>Reading: <strong>{{ reading }}</strong></span>
+            <span class="mx-2">|</span>
+            <span><i class="bi bi-pencil me-1"></i>Writing: <strong>{{ writing }}</strong></span>
+          </div>
+
+        </div>
+        {% endif %}
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ GRADE SCALE SECTION ═══════════════ -->
+<section class="grade-section py-5">
+  <div class="container">
+    <h2 class="section-title text-center mb-4">Grade Scale</h2>
+    <div class="row g-3 justify-content-center">
+      <div class="col-6 col-md-4 col-lg-2">
+        <div class="grade-card grade-card-success">
+          <div class="gc-letter">A+</div>
+          <div class="gc-range">90 – 100</div>
+          <div class="gc-label">Outstanding</div>
+        </div>
+      </div>
+      <div class="col-6 col-md-4 col-lg-2">
+        <div class="grade-card grade-card-success">
+          <div class="gc-letter">A</div>
+          <div class="gc-range">80 – 89</div>
+          <div class="gc-label">Excellent</div>
+        </div>
+      </div>
+      <div class="col-6 col-md-4 col-lg-2">
+        <div class="grade-card grade-card-info">
+          <div class="gc-letter">B</div>
+          <div class="gc-range">70 – 79</div>
+          <div class="gc-label">Good</div>
+        </div>
+      </div>
+      <div class="col-6 col-md-4 col-lg-2">
+        <div class="grade-card grade-card-warning">
+          <div class="gc-letter">C</div>
+          <div class="gc-range">60 – 69</div>
+          <div class="gc-label">Average</div>
+        </div>
+      </div>
+      <div class="col-6 col-md-4 col-lg-2">
+        <div class="grade-card grade-card-warning">
+          <div class="gc-letter">D</div>
+          <div class="gc-range">50 – 59</div>
+          <div class="gc-label">Below Avg</div>
+        </div>
+      </div>
+      <div class="col-6 col-md-4 col-lg-2">
+        <div class="grade-card grade-card-danger">
+          <div class="gc-letter">F</div>
+          <div class="gc-range">0 – 49</div>
+          <div class="gc-label">Needs Work</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ HOW IT WORKS ═══════════════ -->
+<section class="how-section py-5">
+  <div class="container">
+    <h2 class="section-title text-center mb-5">How It Works</h2>
+    <div class="row g-4 justify-content-center">
+
+      <div class="col-md-4">
+        <div class="step-card">
+          <div class="step-num">01</div>
+          <div class="step-icon"><i class="bi bi-input-cursor-text"></i></div>
+          <h5 class="step-title">Enter Scores</h5>
+          <p class="step-desc">Type the student's Reading and Writing scores (0–100) into the form.</p>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="step-card">
+          <div class="step-num">02</div>
+          <div class="step-icon"><i class="bi bi-cpu-fill"></i></div>
+          <h5 class="step-title">AI Analyses</h5>
+          <p class="step-desc">Our Linear Regression model uses patterns from 200+ students to calculate a prediction.</p>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="step-card">
+          <div class="step-num">03</div>
+          <div class="step-icon"><i class="bi bi-award-fill"></i></div>
+          <h5 class="step-title">Get Result</h5>
+          <p class="step-desc">See the predicted Math Score and Grade instantly on screen.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ FOOTER ═══════════════ -->
+<footer class="footer py-4">
+  <div class="container text-center">
+    <p class="footer-brand mb-1">
+      <i class="bi bi-mortarboard-fill me-2"></i><strong>Student Performance Prediction System</strong>
+    </p>
+    <p class="footer-stack mb-0">
+      Built with Python &middot; Flask &middot; Scikit-learn &middot; Pandas &middot; Bootstrap 5
+    </p>
+  </div>
+</footer>
+
+<!-- Bootstrap JS (for collapse, tooltips, etc.) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Our custom JS -->
+<script>
+// ── Animate score counter ─────────────────────────────────
+const scoreEl = document.getElementById("animScore");
+if (scoreEl) {
+  const target = parseFloat(scoreEl.dataset.target);
+  const duration = 1400;
+  const startTime = performance.now();
+
+  function animateCount(now) {
+    const elapsed = now - startTime;
+    const progress = Math.min(elapsed / duration, 1);
+    // easeOutCubic easing
+    const ease = 1 - Math.pow(1 - progress, 3);
+    scoreEl.textContent = (target * ease).toFixed(progress === 1 ? 2 : 0);
+    if (progress < 1) requestAnimationFrame(animateCount);
+  }
+  requestAnimationFrame(animateCount);
+}
+
+// ── Animate progress bar ──────────────────────────────────
+const bar = document.getElementById("resultBar");
+if (bar) {
+  const w = bar.dataset.width;
+  setTimeout(() => { bar.style.width = w; }, 300);
+}
+
+// ── Result box scroll into view ───────────────────────────
+const resultBox = document.getElementById("resultBox");
+if (resultBox) {
+  setTimeout(() => {
+    resultBox.scrollIntoView({ behavior: "smooth", block: "center" });
+  }, 200);
+}
+
+// ── Form validation ───────────────────────────────────────
+document.getElementById("predictForm")?.addEventListener("submit", function(e) {
+  const r = parseFloat(document.getElementById("reading_score").value);
+  const w = parseFloat(document.getElementById("writing_score").value);
+  if (isNaN(r) || isNaN(w) || r < 0 || r > 100 || w < 0 || w > 100) {
+    e.preventDefault();
+    alert("Please enter valid scores between 0 and 100.");
+  }
+});
+
+// ── Button loading state ──────────────────────────────────
+document.getElementById("predictForm")?.addEventListener("submit", function() {
+  const btn = document.getElementById("submitBtn");
+  btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Predicting…';
+  btn.disabled = true;
+});
+</script>
+
+</body>
+</html>

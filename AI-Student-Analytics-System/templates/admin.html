@@ -1,0 +1,215 @@
+{% extends "base.html" %}
+{% block title %}Admin Panel — AI Student Analytics{% endblock %}
+
+{% block content %}
+{% set page_title = "Admin Panel" %}
+{% include "_layout.html" %}
+<div class="page-container">
+
+  <!-- Admin KPI Cards -->
+  <div class="row g-4 mb-4">
+    <div class="col-6 col-xl-3">
+      <div class="kpi-card kpi-blue">
+        <div class="kpi-icon"><i class="bi bi-people-fill"></i></div>
+        <div class="kpi-value">{{ users | length }}</div>
+        <div class="kpi-label">Registered Users</div>
+        <div class="kpi-trend"><i class="bi bi-person-plus me-1"></i>All accounts</div>
+      </div>
+    </div>
+    <div class="col-6 col-xl-3">
+      <div class="kpi-card kpi-purple">
+        <div class="kpi-icon"><i class="bi bi-cpu-fill"></i></div>
+        <div class="kpi-value">{{ total_predictions }}</div>
+        <div class="kpi-label">Total Predictions</div>
+        <div class="kpi-trend"><i class="bi bi-graph-up me-1"></i>System-wide</div>
+      </div>
+    </div>
+    <div class="col-6 col-xl-3">
+      <div class="kpi-card kpi-green">
+        <div class="kpi-icon"><i class="bi bi-database-fill"></i></div>
+        <div class="kpi-value">{{ total_students }}</div>
+        <div class="kpi-label">Dataset Students</div>
+        <div class="kpi-trend"><i class="bi bi-file-earmark-bar-graph me-1"></i>CSV rows</div>
+      </div>
+    </div>
+    <div class="col-6 col-xl-3">
+      <div class="kpi-card kpi-red">
+        <div class="kpi-icon"><i class="bi bi-shield-fill-check"></i></div>
+        <div class="kpi-value">{{ admins }}</div>
+        <div class="kpi-label">Admin Accounts</div>
+        <div class="kpi-trend"><i class="bi bi-lock-fill me-1"></i>Privileged</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row g-4">
+
+    <!-- User Management -->
+    <div class="col-lg-5">
+      <div class="glass-card h-100">
+        <div class="chart-header">
+          <i class="bi bi-people-fill me-2 text-accent"></i>User Management
+          <a href="{{ url_for('register') }}" class="btn-sm-accent ms-auto">
+            <i class="bi bi-person-plus-fill me-1"></i>Add User
+          </a>
+        </div>
+        <div class="table-responsive">
+          <table class="table table-dark-custom mb-0">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Joined</th>
+                <th>Preds</th>
+              </tr>
+            </thead>
+            <tbody>
+            {% for u in users %}
+            <tr>
+              <td class="text-muted">{{ u.id }}</td>
+              <td>
+                <div class="d-flex align-items-center gap-2">
+                  <div class="mini-avatar">{{ u.username[0].upper() }}</div>
+                  <strong>{{ u.username }}</strong>
+                </div>
+              </td>
+              <td class="text-muted" style="font-size:.75rem">{{ u.email }}</td>
+              <td>
+                {% if u.is_admin %}
+                <span class="role-badge role-admin"><i class="bi bi-shield-fill me-1"></i>Admin</span>
+                {% else %}
+                <span class="role-badge role-user"><i class="bi bi-person me-1"></i>User</span>
+                {% endif %}
+              </td>
+              <td class="text-muted" style="font-size:.73rem">
+                {{ u.created_at.strftime('%Y-%m-%d') }}
+              </td>
+              <td>
+                <span class="badge bg-secondary">{{ u.predictions | length }}</span>
+              </td>
+            </tr>
+            {% else %}
+            <tr><td colspan="6" class="text-center text-muted py-4">No users found.</td></tr>
+            {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Recent Predictions (All Users) -->
+    <div class="col-lg-7">
+      <div class="glass-card h-100">
+        <div class="chart-header">
+          <i class="bi bi-clock-history me-2 text-info"></i>All Predictions
+          <span class="ms-auto text-muted" style="font-size:.75rem">Latest {{ preds | length }}</span>
+        </div>
+        <div class="table-responsive" style="max-height:480px;overflow-y:auto">
+          <table class="table table-dark-custom mb-0">
+            <thead class="sticky-top">
+              <tr>
+                <th>User</th>
+                <th>Student</th>
+                <th>Score</th>
+                <th>Interval</th>
+                <th>Grade</th>
+                <th>Risk</th>
+                <th>Confidence</th>
+                <th>Model</th>
+                <th>Date</th>
+              </tr>
+            </thead>
+            <tbody>
+            {% for p in preds %}
+            <tr>
+              <td>
+                <span class="mini-avatar" style="width:22px;height:22px;font-size:.65rem">
+                  {{ p.user.username[0].upper() if p.user else '?' }}
+                </span>
+                <small class="ms-1 text-muted">{{ p.user.username if p.user else 'deleted' }}</small>
+              </td>
+              <td>{{ p.student_name or '—' }}</td>
+              <td><strong>{{ p.predicted_score }}</strong></td>
+              <td class="text-muted" style="font-size:.73rem">{{ p.prediction_low if p.prediction_low is not none else 'N/A' }} - {{ p.prediction_high if p.prediction_high is not none else 'N/A' }}</td>
+              <td>
+                <span class="badge bg-{% if p.grade in ['A+','A'] %}success{% elif p.grade=='B' %}info{% elif p.grade in ['C','D'] %}warning{% else %}danger{% endif %}">
+                  {{ p.grade }}
+                </span>
+              </td>
+              <td><span class="risk-badge risk-{{ p.risk_level.lower() }}">{{ p.risk_level }}</span></td>
+              <td>
+                <div class="mini-bar-wrap">
+                  <div class="mini-bar bg-info" style="width:{{ p.confidence }}%;max-width:60px"></div>
+                  <span>{{ p.confidence }}%</span>
+                </div>
+              </td>
+              <td class="text-muted" style="font-size:.73rem">{{ p.model_version or 'N/A' }}</td>
+              <td class="text-muted" style="font-size:.73rem">{{ p.created_at.strftime('%Y-%m-%d') }}</td>
+            </tr>
+            {% else %}
+            <tr><td colspan="9" class="text-center text-muted py-4">No predictions yet.</td></tr>
+            {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- System Info -->
+  <div class="row g-4 mt-0">
+    <div class="col-12">
+      <div class="glass-card">
+        <div class="chart-header"><i class="bi bi-info-circle-fill me-2 text-info"></i>System Information</div>
+        <div class="row g-3">
+          <div class="col-sm-6 col-md-3">
+            <div class="sys-info-item">
+              <div class="sys-label">Model Status</div>
+              <div class="sys-val {% if model_trained %}text-success{% else %}text-danger{% endif %}">
+                <i class="bi bi-circle-fill me-1" style="font-size:.5rem"></i>
+                {{ 'Trained & Active' if model_trained else 'Not Trained' }}
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-3">
+            <div class="sys-info-item">
+              <div class="sys-label">Best Model</div>
+              <div class="sys-val">{{ best_model or 'N/A' }}</div>
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-3">
+            <div class="sys-info-item">
+              <div class="sys-label">Best R² Score</div>
+              <div class="sys-val text-success">{{ best_r2 or 'N/A' }}</div>
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-3">
+            <div class="sys-info-item">
+              <div class="sys-label">Database</div>
+              <div class="sys-val text-info">SQLite / analytics.db</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-4 d-flex flex-wrap gap-3">
+          <a href="{{ url_for('dashboard') }}" class="btn-action-pill">
+            <i class="bi bi-speedometer2 me-2"></i>Go to Dashboard
+          </a>
+          <a href="{{ url_for('report') }}" class="btn-action-pill btn-action-secondary">
+            <i class="bi bi-file-earmark-pdf me-2"></i>View Reports
+          </a>
+          <a href="{{ url_for('api_export_all') }}" class="btn-action-pill btn-action-secondary">
+            <i class="bi bi-download me-2"></i>Export All Predictions
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+  </main>
+</div>{# end main-wrapper #}
+{% endblock %}
