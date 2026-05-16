@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="glass-card" style="max-width: 800px; margin: 0 auto;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+        <h2>Bulk Predict (CSV Upload)</h2>
+        <a href="{{ url_for('dashboard') }}" class="btn-secondary">Back to Dashboard</a>
+    </div>
+    
+    <p style="color: var(--text-secondary); margin-bottom: 2rem;">
+        Upload a CSV file containing <code>reading score</code> and <code>writing score</code> columns. The system will predict the math score for each row and save the results to your dashboard.
+    </p>
+
+    <form method="POST" enctype="multipart/form-data">
+        <label for="csv_file" class="upload-zone" style="display: block;">
+            <div style="font-size: 3rem; margin-bottom: 1rem;">📄</div>
+            <h3 style="margin-bottom: 0.5rem;">Click to upload CSV</h3>
+            <p style="color: var(--text-secondary)">or drag and drop</p>
+            <input type="file" id="csv_file" name="csv_file" accept=".csv" required style="display: none;">
+        </label>
+        <div style="text-align: center; margin-top: 2rem;">
+            <button type="submit" class="btn-primary" style="padding: 1rem 3rem; font-size: 1.1rem;">Process Bulk Data</button>
+        </div>
+    </form>
+
+    {% if results %}
+    <div style="margin-top: 3rem;">
+        <h3>Results Preview</h3>
+        <div style="overflow-x: auto;">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Reading</th>
+                        <th>Writing</th>
+                        <th>Predicted Math</th>
+                        <th>Grade</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for r in results %}
+                    <tr>
+                        <td>{{ r.reading }}</td>
+                        <td>{{ r.writing }}</td>
+                        <td><strong style="color: var(--accent-color)">{{ r.math }}</strong></td>
+                        <td>
+                            <span class="badge badge-{% if r.grade in ['A+', 'A'] %}success{% elif r.grade == 'B' %}info{% elif r.grade in ['C', 'D'] %}warning{% else %}danger{% endif %}">
+                                {{ r.grade }}
+                            </span>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+<script>
+    document.getElementById('csv_file').addEventListener('change', function(e) {
+        if(e.target.files.length > 0) {
+            const fileName = e.target.files[0].name;
+            const zone = document.querySelector('.upload-zone h3');
+            zone.textContent = "Selected: " + fileName;
+            zone.style.color = "var(--accent-color)";
+        }
+    });
+</script>
+{% endblock %}

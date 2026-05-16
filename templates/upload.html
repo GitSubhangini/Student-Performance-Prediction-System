@@ -1,0 +1,191 @@
+{% extends "base.html" %}
+{% block title %}CSV Upload — AI Student Analytics{% endblock %}
+
+{% block content %}
+{% set page_title = "Batch CSV Upload" %}
+{% include "_layout.html" %}
+<div class="page-container">
+
+  <!-- Upload Card -->
+  <div class="row g-4 mb-4">
+    <div class="col-lg-6">
+      <div class="glass-card">
+        <div class="chart-header"><i class="bi bi-cloud-upload-fill me-2"></i>Upload Student CSV</div>
+        <form method="POST" enctype="multipart/form-data" id="uploadForm">
+          <div class="upload-drop-zone" id="dropZone">
+            <i class="bi bi-file-earmark-spreadsheet-fill upload-icon"></i>
+            <div class="upload-text">Drag & drop your CSV here</div>
+            <div class="upload-sub">or click to browse</div>
+            <input type="file" name="file" id="fileInput" accept=".csv" class="upload-file-input"/>
+          </div>
+          <div id="fileInfo" class="file-info-bar d-none">
+            <i class="bi bi-file-earmark-check-fill text-success me-2"></i>
+            <span id="fileName"></span>
+            <button type="button" class="btn-clear-file ms-auto" id="clearFile">
+              <i class="bi bi-x-circle"></i>
+            </button>
+          </div>
+          <button type="submit" class="btn-predict-main w-100 mt-3" id="uploadBtn">
+            <i class="bi bi-lightning-charge-fill me-2"></i>Process CSV
+            <div class="btn-shine"></div>
+          </button>
+        </form>
+
+        <!-- Column guide -->
+        <div class="mt-4">
+          <div class="chart-header" style="padding:0;border:none;margin-bottom:10px;font-size:.8rem">
+            <i class="bi bi-info-circle me-2 text-info"></i>Required CSV Columns
+          </div>
+          <div class="col-guide">
+            {% for col in ["gender","race_ethnicity","parental_education","lunch","test_prep_course",
+                           "extracurricular","internet_access","study_hours_per_week",
+                           "attendance_rate","math_score","reading_score","writing_score","science_score"] %}
+            <span class="col-chip">{{ col }}</span>
+            {% endfor %}
+          </div>
+          <a href="{{ url_for('download_template') }}" class="btn btn-sm btn-outline-accent mt-3 d-inline-flex align-items-center gap-2">
+            <i class="bi bi-download"></i>Download Template CSV
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stats if results exist -->
+    <div class="col-lg-6">
+      {% if batch_results %}
+      <div class="glass-card">
+        <div class="chart-header"><i class="bi bi-bar-chart-fill me-2"></i>Batch Summary</div>
+        <div class="row g-3 mb-3">
+          {% set avg_score = (batch_results | map(attribute='predicted_score') | list | sum) / batch_results|length %}
+          {% set high_risk = batch_results | selectattr('risk_level','eq','High') | list | length %}
+          <div class="col-6">
+            <div class="kpi-card kpi-purple" style="padding:14px">
+              <div class="kpi-value" style="font-size:1.6rem">{{ batch_results | length }}</div>
+              <div class="kpi-label">Students Processed</div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="kpi-card kpi-blue" style="padding:14px">
+              <div class="kpi-value" style="font-size:1.6rem">{{ avg_score | round(1) }}</div>
+              <div class="kpi-label">Avg Predicted Score</div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="kpi-card kpi-red" style="padding:14px">
+              <div class="kpi-value" style="font-size:1.6rem">{{ high_risk }}</div>
+              <div class="kpi-label">High Risk Students</div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="kpi-card kpi-green" style="padding:14px">
+              {% set pass_ct = batch_results | selectattr('predicted_score','ge',50) | list | length %}
+              <div class="kpi-value" style="font-size:1.6rem">{{ ((pass_ct / batch_results|length)*100)|round(1) }}%</div>
+              <div class="kpi-label">Pass Rate</div>
+            </div>
+          </div>
+        </div>
+        <form method="GET" action="{{ url_for('export_batch_csv') }}">
+          <button class="btn-predict-main w-100" style="padding:10px">
+            <i class="bi bi-download me-2"></i>Export Results as CSV
+          </button>
+        </form>
+      </div>
+      {% else %}
+      <div class="glass-card h-100 d-flex flex-column align-items-center justify-content-center text-center py-5">
+        <div class="placeholder-icon"><i class="bi bi-table"></i></div>
+        <h5 class="mt-3">Batch Prediction</h5>
+        <p class="text-muted">Upload a CSV file to predict performance<br>for multiple students at once.</p>
+        <div class="feature-pills mt-2">
+          <span class="pill"><i class="bi bi-check2 me-1"></i>Unlimited rows</span>
+          <span class="pill"><i class="bi bi-check2 me-1"></i>Instant results</span>
+          <span class="pill"><i class="bi bi-check2 me-1"></i>CSV export</span>
+        </div>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+
+  <!-- Results Table -->
+  {% if batch_results %}
+  <div class="glass-card">
+    <div class="chart-header">
+      <i class="bi bi-table me-2"></i>Prediction Results ({{ batch_results | length }} students)
+      <div class="ms-auto d-flex gap-2">
+        <input type="text" class="dash-input" id="tableSearch" placeholder="Search student..."
+               style="padding:4px 12px;font-size:.78rem;width:180px"/>
+      </div>
+    </div>
+    <div class="table-responsive" style="max-height:480px;overflow-y:auto">
+      <table class="table table-dark-custom" id="batchTable">
+        <thead class="sticky-top">
+          <tr>
+            <th>#</th><th>Student ID</th><th>Score</th><th>Grade</th>
+            <th>Risk</th><th>Confidence</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for r in batch_results %}
+        <tr>
+          <td class="text-muted">{{ loop.index }}</td>
+          <td>{{ r.student }}</td>
+          <td><strong>{{ r.predicted_score }}</strong></td>
+          <td>
+            <span class="badge bg-{% if r.grade in ['A+','A'] %}success{% elif r.grade=='B' %}info{% elif r.grade in ['C','D'] %}warning{% else %}danger{% endif %}">
+              {{ r.grade }}
+            </span>
+          </td>
+          <td><span class="risk-badge risk-{{ r.risk_level.lower() }}">{{ r.risk_level }}</span></td>
+          <td>{{ r.confidence }}%</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  {% endif %}
+
+</div>
+  </main>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+// Drag & drop
+const dz = document.getElementById('dropZone');
+const fi = document.getElementById('fileInput');
+const info = document.getElementById('fileInfo');
+const fn = document.getElementById('fileName');
+
+dz?.addEventListener('click', () => fi.click());
+dz?.addEventListener('dragover', e => { e.preventDefault(); dz.classList.add('drag-over'); });
+dz?.addEventListener('dragleave', () => dz.classList.remove('drag-over'));
+dz?.addEventListener('drop', e => {
+  e.preventDefault(); dz.classList.remove('drag-over');
+  fi.files = e.dataTransfer.files; showFile(fi.files[0]);
+});
+fi?.addEventListener('change', () => showFile(fi.files[0]));
+
+function showFile(f) {
+  if (!f) return;
+  fn.textContent = f.name + ' (' + (f.size/1024).toFixed(1) + ' KB)';
+  info.classList.remove('d-none'); dz.classList.add('d-none');
+}
+document.getElementById('clearFile')?.addEventListener('click', () => {
+  fi.value=''; info.classList.add('d-none'); dz.classList.remove('d-none');
+});
+document.getElementById('uploadForm')?.addEventListener('submit', () => {
+  const btn = document.getElementById('uploadBtn');
+  btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Processing…';
+  btn.disabled = true;
+});
+
+// Table search
+document.getElementById('tableSearch')?.addEventListener('input', function() {
+  const q = this.value.toLowerCase();
+  document.querySelectorAll('#batchTable tbody tr').forEach(row => {
+    row.style.display = row.textContent.toLowerCase().includes(q) ? '' : 'none';
+  });
+});
+</script>
+{% endblock %}
